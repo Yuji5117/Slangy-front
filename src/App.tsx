@@ -1,9 +1,12 @@
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+
 function App() {
   return (
     <>
-      <div>
-        <h1 className="text-pink-700">test</h1>
-      </div>
+      <Header />
+      <main></main>
+      <Footer />
     </>
   );
 }
