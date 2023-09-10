@@ -1,7 +1,19 @@
+import { useState } from "react";
+
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
 function App() {
+  const [targetWord, setTargetWord] = useState<string>("");
+  const [targetLang, setTargetLang] = useState<string>("Engilsh");
+  const [explainLang, setExplainLang] = useState<string>("Japanese");
+
+  const onClickFn = () => {
+    console.log({ targetWord });
+    console.log({ targetLang });
+    console.log({ explainLang });
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -14,7 +26,13 @@ function App() {
                 <label className="block text-gray-700 mb-1">
                   解説対象の言語:
                 </label>
-                <select className="border rounded-md p-2 w-full">
+                <select
+                  className="border rounded-md p-2 w-full"
+                  value={targetLang}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                    setTargetLang(e.target.value)
+                  }
+                >
                   <option value="en">Engilsh</option>
                   <option value="ja">Japanese</option>
                   {/* 他の言語オプションをここに追加 */}
@@ -25,7 +43,13 @@ function App() {
                 <label className="block text-gray-700 mb-1">
                   解説用の言語:
                 </label>
-                <select className="border rounded-md p-2 w-full">
+                <select
+                  className="border rounded-md p-2 w-full"
+                  value={explainLang}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                    setExplainLang(e.target.value)
+                  }
+                >
                   <option value="en">Japanese</option>
                   <option value="ja">Engilsh</option>
                   {/* 他の言語オプションをここに追加 */}
@@ -38,12 +62,22 @@ function App() {
               <textarea
                 className="w-full h-20 p-2 border rounded-md"
                 placeholder="テキストを入力してください..."
+                value={targetWord}
+                onChange={(e) => setTargetWord(e.target.value)}
               ></textarea>
             </div>
 
             {/* Button Toolbar */}
             <div className="flex justify-end">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md">
+              <button
+                className={`${
+                  targetWord.trim() === ""
+                    ? "bg-gray-300 cursor-not-allowed"
+                    : "bg-blue-500"
+                } text-white px-4 py-2 rounded-md`}
+                disabled={targetWord.trim() === ""}
+                onClick={() => onClickFn()}
+              >
                 explain
               </button>
             </div>
