@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 import Footer from "./components/Footer";
@@ -5,13 +6,15 @@ import Header from "./components/Header";
 
 function App() {
   const [targetWord, setTargetWord] = useState<string>("");
+  const [result, setResult] = useState<string>("解説結果がここに表示されます");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
   const [explainLang, setExplainLang] = useState<string>("Japanese");
 
-  const onClickFn = () => {
-    console.log({ targetWord });
-    console.log({ targetLang });
-    console.log({ explainLang });
+  const onClickFn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const res = await axios.get(import.meta.env.VITE_API_URL);
+    setResult(res.data);
   };
 
   return (
@@ -57,34 +60,35 @@ function App() {
               </div>
             </div>
 
-            {/* Translate Input Area */}
-            <div className="mb-2">
-              <textarea
-                className="w-full h-20 p-2 border rounded-md"
-                placeholder="テキストを入力してください..."
-                value={targetWord}
-                onChange={(e) => setTargetWord(e.target.value)}
-              ></textarea>
-            </div>
+            <form action="" onSubmit={(e) => onClickFn(e)}>
+              {/* Translate Input Area */}
+              <div className="mb-2">
+                <textarea
+                  className="w-full h-20 p-2 border rounded-md"
+                  placeholder="テキストを入力してください..."
+                  value={targetWord}
+                  onChange={(e) => setTargetWord(e.target.value)}
+                ></textarea>
+              </div>
 
-            {/* Button Toolbar */}
-            <div className="flex justify-end">
-              <button
-                className={`${
-                  targetWord.trim() === ""
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-blue-500"
-                } text-white px-4 py-2 rounded-md`}
-                disabled={targetWord.trim() === ""}
-                onClick={() => onClickFn()}
-              >
-                explain
-              </button>
-            </div>
+              {/* Button Toolbar */}
+              <div className="flex justify-end">
+                <button
+                  className={`${
+                    targetWord.trim() === ""
+                      ? "bg-gray-300 cursor-not-allowed"
+                      : "bg-blue-500"
+                  } text-white px-4 py-2 rounded-md`}
+                  disabled={targetWord.trim() === ""}
+                >
+                  explain
+                </button>
+              </div>
+            </form>
           </div>
           <div className="bg-white p-4 shadow-md">
             {/* Translate Result Area */}
-            <p>解説結果がここに表示されます</p>
+            <p>{result}</p>
           </div>
         </section>
       </main>
