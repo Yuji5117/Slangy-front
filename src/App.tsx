@@ -13,7 +13,7 @@ function App() {
   const onClickFn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const res = await axios.get(import.meta.env.VITE_API_URL);
+    const res = await axios.post(import.meta.env.VITE_API_URL, { targetWord });
     setResult(res.data);
   };
 
