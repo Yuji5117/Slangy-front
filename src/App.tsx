@@ -9,12 +9,17 @@ function App() {
   const [result, setResult] = useState<string>("解説結果がここに表示されます");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
   const [explainLang, setExplainLang] = useState<string>("Japanese");
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const onClickFn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setIsDisabled(true);
+
     const res = await axios.post(import.meta.env.VITE_API_URL, { targetWord });
     setResult(res.data.message);
+    console.log("tesu");
+    setIsDisabled(false);
   };
 
   return (
@@ -75,11 +80,11 @@ function App() {
               <div className="flex justify-end">
                 <button
                   className={`${
-                    targetWord.trim() === ""
+                    targetWord.trim() === "" || isDisabled
                       ? "bg-gray-300 cursor-not-allowed"
                       : "bg-blue-500"
                   } text-white px-4 py-2 rounded-md`}
-                  disabled={targetWord.trim() === ""}
+                  disabled={targetWord.trim() === "" || isDisabled}
                 >
                   explain
                 </button>
