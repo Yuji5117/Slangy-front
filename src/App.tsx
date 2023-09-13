@@ -14,7 +14,7 @@ function App() {
     e.preventDefault();
 
     const res = await axios.post(import.meta.env.VITE_API_URL, { targetWord });
-    setResult(res.data);
+    setResult(res.data.message);
   };
 
   return (
