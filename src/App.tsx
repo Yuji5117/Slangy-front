@@ -6,7 +6,7 @@ import Header from "./components/Header";
 
 function App() {
   const [targetWord, setTargetWord] = useState<string>("");
-  const [result, setResult] = useState<string>("解説結果がここに表示されます");
+  const [result, setResult] = useState<string>("結果がここに表示されます");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
   const [explainLang, setExplainLang] = useState<string>("Japanese");
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
@@ -15,7 +15,7 @@ function App() {
     e.preventDefault();
 
     setIsDisabled(true);
-
+    setResult("検索中...");
     const res = await axios.post(import.meta.env.VITE_API_URL, { targetWord });
     setResult(res.data.message);
     console.log("tesu");
