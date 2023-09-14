@@ -50,7 +50,7 @@ const Form = ({ targetLang, setResult }: FormProps) => {
           } text-white px-4 py-2 rounded-md`}
           disabled={targetWord.trim() === "" || isDisabled}
         >
-          explain
+          Translate
         </button>
       </div>
     </form>
