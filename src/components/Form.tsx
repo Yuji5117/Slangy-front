@@ -22,7 +22,7 @@ const Form = ({ setResult }: FormProps) => {
       setResult(res.data.message);
       setIsDisabled(false);
     } catch (error: unknown) {
-      console.error("An error occurred:", error);
+      console.error("An error occurred", error);
     }
   };
 
