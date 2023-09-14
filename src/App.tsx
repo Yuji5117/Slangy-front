@@ -1,26 +1,13 @@
-import axios from "axios";
 import { useState } from "react";
 
 import Footer from "./components/Footer";
+import Form from "./components/Form";
 import Header from "./components/Header";
 
 function App() {
-  const [targetWord, setTargetWord] = useState<string>("");
   const [result, setResult] = useState<string>("結果がここに表示されます");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
   const [explainLang, setExplainLang] = useState<string>("Japanese");
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
-
-  const onClickFn = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    setIsDisabled(true);
-    setResult("検索中...");
-    const res = await axios.post(import.meta.env.VITE_API_URL, { targetWord });
-    setResult(res.data.message);
-    console.log("tesu");
-    setIsDisabled(false);
-  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -65,31 +52,7 @@ function App() {
               </div>
             </div>
 
-            <form action="" onSubmit={(e) => onClickFn(e)}>
-              {/* Translate Input Area */}
-              <div className="mb-2">
-                <textarea
-                  className="w-full h-20 p-2 border rounded-md"
-                  placeholder="テキストを入力してください..."
-                  value={targetWord}
-                  onChange={(e) => setTargetWord(e.target.value)}
-                ></textarea>
-              </div>
-
-              {/* Button Toolbar */}
-              <div className="flex justify-end">
-                <button
-                  className={`${
-                    targetWord.trim() === "" || isDisabled
-                      ? "bg-gray-300 cursor-not-allowed"
-                      : "bg-blue-500"
-                  } text-white px-4 py-2 rounded-md`}
-                  disabled={targetWord.trim() === "" || isDisabled}
-                >
-                  explain
-                </button>
-              </div>
-            </form>
+            <Form setResult={setResult} />
           </div>
           <div className="bg-white p-4 shadow-md">
             {/* Translate Result Area */}
