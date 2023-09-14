@@ -3,21 +3,23 @@ import { useState } from "react";
 import { axios } from "@/lib/axios";
 
 type FormProps = {
+  targetLang: string;
   setResult: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Form = ({ setResult }: FormProps) => {
+const Form = ({ targetLang, setResult }: FormProps) => {
   const [targetWord, setTargetWord] = useState<string>("");
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const onClickFn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(targetLang);
 
     setIsDisabled(true);
     setResult("...");
 
     try {
-      const res = await axios.post("explanation", { targetWord });
+      const res = await axios.post("explanation", { targetLang, targetWord });
 
       setResult(res.data.message);
       setIsDisabled(false);
@@ -32,7 +34,7 @@ const Form = ({ setResult }: FormProps) => {
       <div className="mb-2">
         <textarea
           className="w-full h-20 p-2 border rounded-md"
-          placeholder="テキストを入力してください..."
+          placeholder="スラングを入力してください..."
           value={targetWord}
           onChange={(e) => setTargetWord(e.target.value)}
         ></textarea>

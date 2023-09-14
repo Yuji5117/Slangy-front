@@ -28,8 +28,9 @@ function App() {
                     setTargetLang(e.target.value)
                   }
                 >
-                  <option value="en">Engilsh</option>
-                  <option value="ja">Japanese</option>
+                  <option value="English">Engilsh</option>
+                  <option value="Korean">Korean</option>
+                  <option value="Japanese">Japanese</option>
                   {/* 他の言語オプションをここに追加 */}
                 </select>
               </div>
@@ -52,7 +53,7 @@ function App() {
               </div>
             </div>
 
-            <Form setResult={setResult} />
+            <Form targetLang={targetLang} setResult={setResult} />
           </div>
           <div className="bg-white p-4 shadow-md">
             {/* Translate Result Area */}
