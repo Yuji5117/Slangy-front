@@ -1,5 +1,6 @@
-import axios from "axios";
 import { useState } from "react";
+
+import { axios } from "@/lib/axios";
 
 type FormProps = {
   setResult: React.Dispatch<React.SetStateAction<string>>;
@@ -14,7 +15,7 @@ const Form = ({ setResult }: FormProps) => {
 
     setIsDisabled(true);
     setResult("...");
-    const res = await axios.post(import.meta.env.VITE_API_URL, { targetWord });
+    const res = await axios.post("explanation", { targetWord });
     setResult(res.data.message);
     console.log("tesu");
     setIsDisabled(false);
