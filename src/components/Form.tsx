@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import Toolbar from "./Toolbar";
+
 import { axios } from "@/lib/axios";
 
 type FormProps = {
@@ -13,7 +15,6 @@ const Form = ({ targetLang, setResult }: FormProps) => {
 
   const onClickFn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(targetLang);
 
     setIsDisabled(true);
     setResult("...");
@@ -33,15 +34,16 @@ const Form = ({ targetLang, setResult }: FormProps) => {
       {/* Translate Input Area */}
       <div className="mb-2">
         <textarea
-          className="w-full h-20 p-2 border rounded-md"
+          className="w-full p-2 border-none rounded-md"
           placeholder="スラングを入力してください..."
           value={targetWord}
+          rows={1}
           onChange={(e) => setTargetWord(e.target.value)}
         ></textarea>
       </div>
 
       {/* Button Toolbar */}
-      <div className="flex justify-end">
+      <Toolbar>
         <button
           className={`${
             targetWord.trim() === "" || isDisabled
@@ -52,7 +54,7 @@ const Form = ({ targetLang, setResult }: FormProps) => {
         >
           Translate
         </button>
-      </div>
+      </Toolbar>
     </form>
   );
 };
