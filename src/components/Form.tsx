@@ -15,10 +15,15 @@ const Form = ({ setResult }: FormProps) => {
 
     setIsDisabled(true);
     setResult("...");
-    const res = await axios.post("explanation", { targetWord });
-    setResult(res.data.message);
-    console.log("tesu");
-    setIsDisabled(false);
+
+    try {
+      const res = await axios.post("explanation", { targetWord });
+
+      setResult(res.data.message);
+      setIsDisabled(false);
+    } catch (error: unknown) {
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
