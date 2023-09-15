@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import AutoResizingTextarea from "./AutoResizingTextarea";
 import Toolbar from "./Toolbar";
 
 import { axios } from "@/lib/axios";
@@ -29,17 +30,18 @@ const Form = ({ targetLang, setResult }: FormProps) => {
     }
   };
 
+  const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTargetWord(e.target.value);
+  };
+
   return (
     <form action="" onSubmit={(e) => onClickFn(e)}>
       {/* Translate Input Area */}
       <div className="mb-2">
-        <textarea
-          className="w-full p-2 border-none rounded-md"
-          placeholder="スラングを入力してください..."
+        <AutoResizingTextarea
           value={targetWord}
-          rows={1}
-          onChange={(e) => setTargetWord(e.target.value)}
-        ></textarea>
+          onChangeHandler={onChangeHandler}
+        />
       </div>
 
       {/* Button Toolbar */}
