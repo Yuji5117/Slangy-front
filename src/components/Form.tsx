@@ -21,7 +21,7 @@ const Form = ({ targetLang, setResult }: FormProps) => {
     setResult("...");
 
     try {
-      const res = await axios.post("explanation", { targetLang, targetWord });
+      const res = await axios.post("translate", { targetLang, targetWord });
 
       setResult(res.data.message);
       setIsDisabled(false);
