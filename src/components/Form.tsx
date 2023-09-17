@@ -33,7 +33,6 @@ const Form = ({ targetLang, setResult }: FormProps) => {
       while (test) {
         const { done, value } = await reader.read();
         if (done) {
-          console.log("Stream finished.");
           test = false;
           break;
         }
