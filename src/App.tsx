@@ -16,13 +16,13 @@ function App() {
         <section className="flex flex-col space-y-4 w-full max-w-md">
           <div className="border-b border-gray-100 p-4">
             {/* Lang Select */}
-            <div className="flex justify-between mb-2">
+            <div className="flex justify-between mb-2 border-b">
               <div className="flex-1 mr-2">
-                <label className="block text-gray-700 mb-1">
+                {/* <label className="block text-gray-700 mb-1">
                   解説対象の言語:
-                </label>
+                </label> */}
                 <select
-                  className="border rounded-md p-2 w-full"
+                  className="border-none outline-none rounded-md p-2 w-full"
                   value={targetLang}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                     setTargetLang(e.target.value)
@@ -36,11 +36,11 @@ function App() {
               </div>
 
               <div className="flex-1 ml-2">
-                <label className="block text-gray-700 mb-1">
+                {/* <label className="block text-gray-700 mb-1 ">
                   解説用の言語:
-                </label>
+                </label> */}
                 <select
-                  className="border rounded-md p-2 w-full"
+                  className="border-none outline-none rounded-md p-2 w-full"
                   value={explainLang}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                     setExplainLang(e.target.value)
