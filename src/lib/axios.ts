@@ -5,7 +5,7 @@ import { API_URL } from "@/config";
 export const axios = Axios.create({
   baseURL: API_URL,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "text/plain",
   },
 });
 
