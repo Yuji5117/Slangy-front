@@ -3,7 +3,7 @@ import { useState } from "react";
 import AutoResizingTextarea from "./AutoResizingTextarea";
 import Toolbar from "./Toolbar";
 
-import { axios } from "@/lib/axios";
+import { API_URL } from "@/config";
 
 type FormProps = {
   targetLang: string;
@@ -18,12 +18,30 @@ const Form = ({ targetLang, setResult }: FormProps) => {
     e.preventDefault();
 
     setIsDisabled(true);
-    setResult("...");
+    setResult("");
 
     try {
-      const res = await axios.post("translate", { targetLang, targetWord });
+      const res = await fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ targetLang, targetWord }),
+      });
 
-      setResult(res.data.message);
+      const reader =
+        res?.body?.getReader() as ReadableStreamDefaultReader<Uint8Array>;
+
+      let test = true;
+      while (test) {
+        const { done, value } = await reader.read();
+        if (done) {
+          console.log("Stream finished.");
+          test = false;
+          break;
+        }
+
+        const decoded = new TextDecoder().decode(value);
+        setResult((prev) => prev + decoded);
+      }
+
       setIsDisabled(false);
     } catch (error: unknown) {
       console.error("An error occurred", error);
