@@ -7,7 +7,7 @@ import Header from "./components/Header";
 function App() {
   const [result, setResult] = useState<string>("結果がここに表示されます");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
-  const [explainLang, setExplainLang] = useState<string>("Japanese");
+  // const [explainLang, setExplainLang] = useState<string>("Japanese");
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -35,10 +35,10 @@ function App() {
                 </select>
               </div>
 
-              <div className="flex-1 ml-2">
-                {/* <label className="block text-gray-700 mb-1 ">
+              {/* <div className="flex-1 ml-2">
+                <label className="block text-gray-700 mb-1 ">
                   解説用の言語:
-                </label> */}
+                </label> 
                 <select
                   className="border-none outline-none rounded-md p-2 w-full"
                   value={explainLang}
@@ -48,9 +48,8 @@ function App() {
                 >
                   <option value="en">Japanese</option>
                   <option value="ja">Engilsh</option>
-                  {/* 他の言語オプションをここに追加 */}
                 </select>
-              </div>
+              </div> */}
             </div>
 
             <Form targetLang={targetLang} setResult={setResult} />
