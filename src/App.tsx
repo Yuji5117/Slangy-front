@@ -5,7 +5,7 @@ import Form from "./components/Form";
 import Header from "./components/Header";
 
 function App() {
-  const [result, setResult] = useState<string>("結果がここに表示されます");
+  const [result, setResult] = useState<string>("");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
   // const [explainLang, setExplainLang] = useState<string>("Japanese");
 
@@ -56,7 +56,7 @@ function App() {
           </div>
           <div className="bg-white p-4 shadow-md">
             {/* Translate Result Area */}
-            <p>{result}</p>
+            <p className="text-lg">{result}</p>
           </div>
         </section>
       </main>
