@@ -3,11 +3,17 @@ import { useState } from "react";
 import Footer from "./components/Footer";
 import Form from "./components/Form";
 import Header from "./components/Header";
+import Select from "./components/Select";
+import { LANG_OPTIONS } from "./const";
 
 function App() {
   const [result, setResult] = useState<string>("");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
   // const [explainLang, setExplainLang] = useState<string>("Japanese");
+
+  const changeTargetLang = (option: string) => {
+    setTargetLang(option);
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -18,38 +24,12 @@ function App() {
             {/* Lang Select */}
             <div className="flex justify-between mb-2 border-b">
               <div className="flex-1 mr-2">
-                {/* <label className="block text-gray-700 mb-1">
-                  解説対象の言語:
-                </label> */}
-                <select
-                  className="border-none outline-none rounded-md p-2 w-full"
-                  value={targetLang}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                    setTargetLang(e.target.value)
-                  }
-                >
-                  <option value="English">Engilsh</option>
-                  <option value="Korean">Korean</option>
-                  <option value="Japanese">Japanese</option>
-                  {/* 他の言語オプションをここに追加 */}
-                </select>
+                <Select
+                  options={LANG_OPTIONS}
+                  selectedOption={targetLang}
+                  changeSelectedOption={changeTargetLang}
+                />
               </div>
-
-              {/* <div className="flex-1 ml-2">
-                <label className="block text-gray-700 mb-1 ">
-                  解説用の言語:
-                </label> 
-                <select
-                  className="border-none outline-none rounded-md p-2 w-full"
-                  value={explainLang}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                    setExplainLang(e.target.value)
-                  }
-                >
-                  <option value="en">Japanese</option>
-                  <option value="ja">Engilsh</option>
-                </select>
-              </div> */}
             </div>
 
             <Form targetLang={targetLang} setResult={setResult} />
