@@ -9,7 +9,6 @@ import { LANG_OPTIONS } from "./const";
 function App() {
   const [result, setResult] = useState<string>("");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
-  // const [explainLang, setExplainLang] = useState<string>("Japanese");
 
   const changeTargetLang = (option: string) => {
     setTargetLang(option);
