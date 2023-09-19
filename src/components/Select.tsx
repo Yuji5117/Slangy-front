@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-type SlectProps = {
+type SelectProps = {
   options: string[];
   selectedOption: string;
   changeSelectedOption: (option: string) => void;
@@ -10,32 +10,35 @@ const Select = ({
   options,
   selectedOption,
   changeSelectedOption,
-}: SlectProps) => {
-  const [isListOpen, setIsSelectOpen] = useState<boolean>(false);
+}: SelectProps) => {
+  const [isOptionsMenuOpen, setIsOptionsMenuOpen] = useState<boolean>(false);
 
-  const onClickListOpen = () => {
-    setIsSelectOpen((prevIsListOpen) => !prevIsListOpen);
+  const toggleOptionsMenu = () => {
+    setIsOptionsMenuOpen((prevIsListOpen) => !prevIsListOpen);
   };
 
   return (
     <>
       <div className="relative">
-        <div onClick={onClickListOpen} className="border-none py-2 px-4 w-full">
+        <div
+          onClick={() => toggleOptionsMenu()}
+          className="border-none py-2 px-4 w-full"
+        >
           <p>{selectedOption}</p>
         </div>
         <div
           className={`absolute mt-2 w-64 rounded-md shadow-lg bg-white ${
-            isListOpen ? "" : "hidden"
+            isOptionsMenuOpen ? "" : "hidden"
           }`}
         >
           <ul className="shadow overflow-hidden border border-gray-100 rounded-md">
-            {options.map((option, index) => (
+            {options.map((option) => (
               <li
-                key={index}
+                key={option}
                 className="cursor-pointer hover:bg-gray-100 px-4 py-2"
                 onClick={() => {
                   changeSelectedOption(option);
-                  onClickListOpen();
+                  toggleOptionsMenu();
                 }}
               >
                 {option}
