@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useOptionsMenu } from "@/hooks/useOptionsMenu";
 
 type SelectProps = {
   options: string[];
@@ -11,11 +11,7 @@ const Select = ({
   selectedOption,
   changeSelectedOption,
 }: SelectProps) => {
-  const [isOptionsMenuOpen, setIsOptionsMenuOpen] = useState<boolean>(false);
-
-  const toggleOptionsMenu = () => {
-    setIsOptionsMenuOpen((prevIsListOpen) => !prevIsListOpen);
-  };
+  const [isOptionsMenuOpen, toggleOptionsMenu] = useOptionsMenu();
 
   return (
     <>
