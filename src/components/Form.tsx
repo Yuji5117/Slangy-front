@@ -57,6 +57,7 @@ const Form = ({ targetLang, setResult }: FormProps) => {
       <div className="mb-2">
         <AutoResizingTextarea
           value={targetWord}
+          placeholder="スラングを入力してください。"
           onChangeHandler={onChangeHandler}
         />
       </div>
