@@ -39,8 +39,6 @@ function App() {
     setIsFavorite(false);
   };
 
-  removeToFavorite;
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
