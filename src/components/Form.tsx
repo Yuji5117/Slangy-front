@@ -6,12 +6,18 @@ import Toolbar from "./Toolbar";
 import { API_URL } from "@/config";
 
 type FormProps = {
+  targetWord: string;
   targetLang: string;
+  setTargetWord: React.Dispatch<React.SetStateAction<string>>;
   setResult: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Form = ({ targetLang, setResult }: FormProps) => {
-  const [targetWord, setTargetWord] = useState<string>("");
+const Form = ({
+  targetWord,
+  targetLang,
+  setTargetWord,
+  setResult,
+}: FormProps) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const onClickFn = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -1,18 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { BsBookmarkStar, BsFillBookmarkStarFill } from "react-icons/bs";
 
 import Footer from "./components/Footer";
 import Form from "./components/Form";
 import Header from "./components/Header";
 import Select from "./components/Select";
+import Toolbar from "./components/Toolbar";
 import { LANG_OPTIONS } from "./const";
 
 function App() {
+  const [targetWord, setTargetWord] = useState<string>("");
   const [result, setResult] = useState<string>("");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (localStorage.getItem(targetWord)) {
+      setIsFavorite(true);
+      const value = localStorage.getItem(targetWord) as string;
+      setResult(value);
+    } else {
+      setIsFavorite(false);
+      setResult("");
+    }
+  }, [targetWord]);
 
   const changeTargetLang = (option: string) => {
     setTargetLang(option);
   };
+
+  const addToFavorite = (result: string) => {
+    localStorage.setItem(targetWord, result);
+    setIsFavorite(true);
+  };
+
+  const removeToFavorite = () => {
+    localStorage.removeItem(targetWord);
+    setIsFavorite(false);
+  };
+
+  removeToFavorite;
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -31,11 +58,30 @@ function App() {
               </div>
             </div>
 
-            <Form targetLang={targetLang} setResult={setResult} />
+            <Form
+              targetWord={targetWord}
+              targetLang={targetLang}
+              setTargetWord={setTargetWord}
+              setResult={setResult}
+            />
           </div>
           <div className="bg-white p-4 shadow-md">
             {/* Translate Result Area */}
             <p className="text-lg">{result}</p>
+            <Toolbar>
+              {isFavorite ? (
+                <button onClick={() => removeToFavorite()}>
+                  <BsFillBookmarkStarFill />
+                </button>
+              ) : (
+                <button
+                  disabled={!targetWord || !result}
+                  onClick={() => addToFavorite(result)}
+                >
+                  <BsBookmarkStar />
+                </button>
+              )}
+            </Toolbar>
           </div>
         </section>
       </main>
