@@ -1,10 +1,10 @@
 import { act, renderHook } from "@testing-library/react";
 
-import { useOptionsMenu } from "./useOptionsMenu";
+import { useToggle } from "./useToggle";
 
 describe("initalStateがfalseの時", () => {
   it("toggle関数を1回実行すると、trueになる", () => {
-    const { result } = renderHook(() => useOptionsMenu());
+    const { result } = renderHook(() => useToggle());
 
     expect(result.current[0]).toBe(false);
 
@@ -16,7 +16,7 @@ describe("initalStateがfalseの時", () => {
   });
 
   it("toggle関数を2回実行すると、falseになる", () => {
-    const { result } = renderHook(() => useOptionsMenu());
+    const { result } = renderHook(() => useToggle());
 
     expect(result.current[0]).toBe(false);
 
@@ -34,7 +34,7 @@ describe("initalStateがfalseの時", () => {
 
 describe("initalStateがtrueの時", () => {
   it("toggle関数を1回実行すると、falseになる", () => {
-    const { result } = renderHook(() => useOptionsMenu(true));
+    const { result } = renderHook(() => useToggle(true));
 
     expect(result.current[0]).toBe(true);
 
@@ -46,7 +46,7 @@ describe("initalStateがtrueの時", () => {
   });
 
   it("toggle関数を2回実行すると、trueになる", () => {
-    const { result } = renderHook(() => useOptionsMenu(true));
+    const { result } = renderHook(() => useToggle(true));
 
     expect(result.current[0]).toBe(true);
 

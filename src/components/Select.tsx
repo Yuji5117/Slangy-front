@@ -1,4 +1,4 @@
-import { useOptionsMenu } from "@/hooks/useOptionsMenu";
+import { useToggle } from "@/hooks/useToggle";
 
 type SelectProps = {
   options: string[];
@@ -11,7 +11,7 @@ const Select = ({
   selectedOption,
   changeSelectedOption,
 }: SelectProps) => {
-  const [isOptionsMenuOpen, toggleOptionsMenu] = useOptionsMenu();
+  const [isOptionsMenuOpen, toggleOptionsMenu] = useToggle();
 
   return (
     <>
