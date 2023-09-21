@@ -7,12 +7,13 @@ import Header from "./components/Header";
 import Select from "./components/Select";
 import Toolbar from "./components/Toolbar";
 import { LANG_OPTIONS } from "./const";
+import { useBoolean } from "./hooks/useBoolean";
 
 function App() {
   const [targetWord, setTargetWord] = useState<string>("");
   const [result, setResult] = useState<string>("");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useBoolean(false);
 
   useEffect(() => {
     if (localStorage.getItem(targetWord)) {
@@ -23,7 +24,7 @@ function App() {
       setIsFavorite(false);
       setResult("");
     }
-  }, [targetWord]);
+  }, [targetWord, setIsFavorite]);
 
   const changeTargetLang = (option: string) => {
     setTargetLang(option);
