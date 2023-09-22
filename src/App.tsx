@@ -84,11 +84,28 @@ function App() {
                 </button>
               )}
 
-              <input
-                type="checkbox"
-                checked={isDetail}
-                onChange={setIsDetail}
-              />
+              <div className="relative inline-block w-12 mr-2 align-middle select-none">
+                <input
+                  type="checkbox"
+                  name="toggle"
+                  id="toggle"
+                  className="hidden"
+                  checked={isDetail}
+                  onChange={setIsDetail}
+                />
+                <label
+                  htmlFor="toggle"
+                  className={`block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer ${
+                    isDetail ? "bg-blue-400" : ""
+                  }`}
+                >
+                  <span
+                    className={`absolute block w-6 h-6 mt-1 ml-1 bg-white rounded-full shadow transition-transform transform ${
+                      isDetail ? "translate-x-6" : ""
+                    }`}
+                  ></span>
+                </label>
+              </div>
             </Toolbar>
           </div>
         </section>
