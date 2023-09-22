@@ -7,12 +7,14 @@ import Header from "./components/Header";
 import Select from "./components/Select";
 import Toolbar from "./components/Toolbar";
 import { LANG_OPTIONS } from "./const";
+import { useToggle } from "./hooks";
 
 function App() {
   const [targetWord, setTargetWord] = useState<string>("");
   const [result, setResult] = useState<string>("");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isDetail, setIsDetail] = useToggle(false);
 
   useEffect(() => {
     if (localStorage.getItem(targetWord)) {
@@ -44,7 +46,7 @@ function App() {
       <Header />
       <main className="flex-grow">
         <section className="flex flex-col space-y-4 w-full max-w-md">
-          <div className="border-b border-gray-100 p-4">
+          <div className="p-4">
             {/* Lang Select */}
             <div className="flex justify-between mb-2 border-b">
               <div className="flex-1 mr-2">
@@ -56,15 +58,18 @@ function App() {
               </div>
             </div>
 
-            <Form
-              targetWord={targetWord}
-              targetLang={targetLang}
-              setTargetWord={setTargetWord}
-              setResult={setResult}
-            />
+            <div className="border-b pb-4 border-gray-100">
+              <Form
+                isDetail={isDetail}
+                targetWord={targetWord}
+                targetLang={targetLang}
+                setTargetWord={setTargetWord}
+                setResult={setResult}
+              />
+            </div>
           </div>
+          {/* Translate Result Area */}
           <div className="bg-white p-4 shadow-md">
-            {/* Translate Result Area */}
             <p className="text-lg">{result}</p>
             <Toolbar>
               {isFavorite ? (
@@ -79,6 +84,12 @@ function App() {
                   <BsBookmarkStar />
                 </button>
               )}
+
+              <input
+                type="checkbox"
+                checked={isDetail}
+                onChange={setIsDetail}
+              />
             </Toolbar>
           </div>
         </section>

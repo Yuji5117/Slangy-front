@@ -6,6 +6,7 @@ import Toolbar from "./Toolbar";
 import { API_URL } from "@/config";
 
 type FormProps = {
+  isDetail: boolean;
   targetWord: string;
   targetLang: string;
   setTargetWord: React.Dispatch<React.SetStateAction<string>>;
@@ -13,6 +14,7 @@ type FormProps = {
 };
 
 const Form = ({
+  isDetail,
   targetWord,
   targetLang,
   setTargetWord,
@@ -29,7 +31,24 @@ const Form = ({
     try {
       const res = await fetch(API_URL, {
         method: "POST",
-        body: JSON.stringify({ targetLang, targetWord }),
+        body: JSON.stringify({
+          targetLang,
+          targetWord,
+          prompt: [
+            {
+              role: "system",
+              content: `You are an ${targetLang} slang master. Your task is to translate incoming ${targetLang} slang and show only meaning in Japanese`,
+            },
+            {
+              role: "user",
+              content: `「${targetWord}」というスラングの${
+                isDetail
+                  ? "意味とイメージしやすいように解説を日本語でお願いします。（例文は不要です）"
+                  : "意味だけを端的に日本語訳してください。"
+              }`,
+            },
+          ],
+        }),
       });
 
       const reader =
