@@ -68,7 +68,6 @@ function App() {
               />
             </div>
           </div>
-          {/* Translate Result Area */}
           <div className="bg-white p-4 shadow-md">
             <p className="text-lg">{result}</p>
             <Toolbar>
