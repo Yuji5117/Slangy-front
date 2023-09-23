@@ -79,7 +79,7 @@ const Form = ({
   return (
     <form action="" onSubmit={(e) => onClickFn(e)}>
       {/* Translate Input Area */}
-      <div className="mb-2">
+      <div className="mb-3">
         <AutoResizingTextarea
           value={targetWord}
           placeholder="スラングを入力してください。"
@@ -94,7 +94,7 @@ const Form = ({
             targetWord.trim() === "" || isDisabled
               ? "bg-gray-300 cursor-not-allowed"
               : "bg-blue-500"
-          } text-white px-4 py-2 rounded-md`}
+          } text-white px-4 py-1.5 rounded-full`}
           disabled={targetWord.trim() === "" || isDisabled}
         >
           Translate

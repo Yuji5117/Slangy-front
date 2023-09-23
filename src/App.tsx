@@ -46,7 +46,7 @@ function App() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
-        <section className="flex flex-col space-y-4 w-full max-w-md">
+        <section className="flex flex-col w-full max-w-md">
           <div className="p-4">
             {/* Lang Select */}
             <div className="flex justify-between mb-2 border-b">
@@ -70,20 +70,24 @@ function App() {
             </div>
           </div>
           <div className="bg-white p-4 shadow-md">
-            <p className="text-lg">{result}</p>
+            <div className="mb-3">
+              <p className="text-lg">{result}</p>
+            </div>
             <Toolbar>
-              {isFavorite ? (
-                <button onClick={() => removeToFavorite()}>
-                  <BsFillBookmarkStarFill />
-                </button>
-              ) : (
-                <button
-                  disabled={!targetWord || !result}
-                  onClick={() => addToFavorite(result)}
-                >
-                  <BsBookmarkStar />
-                </button>
-              )}
+              <div className="items-center">
+                {isFavorite ? (
+                  <button onClick={() => removeToFavorite()}>
+                    <BsFillBookmarkStarFill />
+                  </button>
+                ) : (
+                  <button
+                    disabled={!targetWord || !result}
+                    onClick={() => addToFavorite(result)}
+                  >
+                    <BsBookmarkStar />
+                  </button>
+                )}
+              </div>
 
               <div className="relative inline-block w-12 mr-2 align-middle select-none">
                 <ToggleSwitchButton on={isDetail} toggle={setIsDetail} />

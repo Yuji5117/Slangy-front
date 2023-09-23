@@ -17,7 +17,7 @@ const ToggleSwitchButton = ({ on, toggle }: ToggleSwitchButtonProps) => {
       <label
         htmlFor="toggle"
         className={`box-content overflow-hidden border block h-6 rounded-full cursor-pointer ${
-          on ? "bg-blue-400" : "bg-gray-100"
+          on ? "bg-blue-500" : "bg-gray-100"
         }`}
       >
         <span

@@ -5,7 +5,7 @@ type ToolbarProps = {
 };
 
 const Toolbar = ({ children }: ToolbarProps) => {
-  return <div className="flex justify-end">{children}</div>;
+  return <div className="flex justify-end items-center h-10">{children}</div>;
 };
 
 export default Toolbar;
