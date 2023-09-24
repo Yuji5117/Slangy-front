@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App.tsx";
 import "./index.css";
+import Favorites from "./features/favorites/components/Favorites.tsx";
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = await import("./test/browser");
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/favorit",
-    element: <div>favorit</div>,
+    element: <Favorites />,
   },
 ]);
 
