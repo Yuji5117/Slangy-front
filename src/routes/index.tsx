@@ -8,10 +8,12 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    children: [{ index: true, element: <Translation /> }],
-  },
-  {
-    path: "/favorit",
-    element: <Favorites />,
+    children: [
+      { index: true, element: <Translation /> },
+      {
+        path: "/favorite",
+        element: <Favorites />,
+      },
+    ],
   },
 ]);
