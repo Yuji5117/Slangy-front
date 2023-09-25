@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Translation /> },
       {
-        path: "/favorite",
+        path: "/favorites",
         element: <Favorites />,
       },
     ],

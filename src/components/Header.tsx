@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -18,15 +19,12 @@ const Header = () => {
         } lg:block`}
       >
         {/* ここにメニュー項目を追加します */}
-        <a href="#" className="mt-2 lg:mt-0 lg:ml-4">
-          項目1
-        </a>
-        <a href="#" className="mt-2 lg:mt-0 lg:ml-4">
-          項目2
-        </a>
-        <a href="#" className="mt-2 lg:mt-0 lg:ml-4">
-          項目3
-        </a>
+        <Link to="/" className="mt-2 lg:mt-0 lg:ml-4">
+          Translation
+        </Link>
+        <Link to="/favorites" className="mt-2 lg:mt-0 lg:ml-4">
+          Favorites
+        </Link>
       </nav>
     </header>
   );
