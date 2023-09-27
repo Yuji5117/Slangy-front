@@ -6,10 +6,20 @@ import { useToggle } from "@/hooks";
 const Header = () => {
   const [isOpen, setIsOpen] = useToggle(false);
 
+  const toggleMenu = () => {
+    setIsOpen();
+
+    if (isOpen) {
+      document.body.classList.remove("overflow-hidden");
+    } else {
+      document.body.classList.add("overflow-hidden");
+    }
+  };
+
   return (
     <header className="flex justify-between items-center p-4">
       <div className="font-bold text-2xl">Slangy</div>
-      <button className="block lg:hidden" onClick={setIsOpen}>
+      <button className="block lg:hidden" onClick={toggleMenu}>
         <div className="w-6 h-0.5 bg-gray-300 mb-1.5"></div>
         <div className="w-6 h-0.5 bg-gray-300 mb-1.5"></div>
         <div className="w-6 h-0.5 bg-gray-300"></div>
@@ -21,16 +31,16 @@ const Header = () => {
         }`}
       >
         <div className="flex "></div>
-        <button onClick={setIsOpen}>
+        <button onClick={toggleMenu}>
           <AiOutlineClose />
         </button>
-        <Link to="/" className="mt-2 lg:mt-0 lg:ml-4" onClick={setIsOpen}>
+        <Link to="/" className="mt-2 lg:mt-0 lg:ml-4" onClick={toggleMenu}>
           Translation
         </Link>
         <Link
           to="/favorites"
           className="mt-2 lg:mt-0 lg:ml-4"
-          onClick={setIsOpen}
+          onClick={toggleMenu}
         >
           Favorites
         </Link>
@@ -40,7 +50,7 @@ const Header = () => {
       {isOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-2"
-          onClick={setIsOpen}
+          onClick={toggleMenu}
         ></div>
       )}
     </header>
