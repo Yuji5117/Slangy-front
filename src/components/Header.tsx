@@ -1,13 +1,14 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { useToggle } from "@/hooks";
+
 const Header = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useToggle(false);
 
   return (
     <header className="flex justify-between items-center p-4">
       <div className="font-bold text-2xl">Slangy</div>
-      <button className="block lg:hidden" onClick={() => setIsOpen(!isOpen)}>
+      <button className="block lg:hidden" onClick={() => setIsOpen()}>
         <div className="w-6 h-0.5 bg-gray-300 mb-1.5"></div>
         <div className="w-6 h-0.5 bg-gray-300 mb-1.5"></div>
         <div className="w-6 h-0.5 bg-gray-300"></div>
@@ -18,7 +19,6 @@ const Header = () => {
           isOpen ? "block" : "hidden"
         } lg:block`}
       >
-        {/* ここにメニュー項目を追加します */}
         <Link to="/" className="mt-2 lg:mt-0 lg:ml-4">
           Translation
         </Link>
