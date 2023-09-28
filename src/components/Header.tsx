@@ -3,16 +3,26 @@ import { Link } from "react-router-dom";
 
 import { useToggle } from "@/hooks";
 
+type NavigationItem = {
+  name: string;
+  to: string;
+};
+
 const Header = () => {
   const [isOpen, setIsOpen] = useToggle(false);
+
+  const navigation: NavigationItem[] = [
+    { name: "Home", to: "/" },
+    { name: "Favorites", to: "/favorites" },
+  ];
 
   const toggleMenu = () => {
     setIsOpen();
 
     if (isOpen) {
-      document.body.classList.remove("overflow-hidden");
+      document.body.classList.remove("overflow-hidden", "pointer-events-none");
     } else {
-      document.body.classList.add("overflow-hidden");
+      document.body.classList.add("overflow-hidden", "pointer-events-none");
     }
   };
 
@@ -26,30 +36,36 @@ const Header = () => {
       </button>
 
       <nav
-        className={`fixed top-0 right-0 w-64 h-full bg-gray-200 transform transition-transform ease-in-out z-10 ${
+        className={`pointer-events-auto fixed top-0 right-0 w-64 h-full bg-white transform transition-transform ease-in-out z-10 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex "></div>
-        <button onClick={toggleMenu}>
-          <AiOutlineClose />
-        </button>
-        <Link to="/" className="mt-2 lg:mt-0 lg:ml-4" onClick={toggleMenu}>
-          Translation
-        </Link>
-        <Link
-          to="/favorites"
-          className="mt-2 lg:mt-0 lg:ml-4"
-          onClick={toggleMenu}
-        >
-          Favorites
-        </Link>
+        <div className="flex flex-col p-4">
+          <div className="flex flex-row-reverse pt-1">
+            <button onClick={toggleMenu}>
+              <AiOutlineClose size="1.5rem" />
+            </button>
+          </div>
+          <ul className="pt-4 pl-3 space-y-2">
+            {navigation.map((item) => (
+              <li key={item.name}>
+                <Link
+                  to={item.to}
+                  className="mt-2 lg:mt-0 lg:ml-4 text-lg"
+                  onClick={toggleMenu}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </nav>
 
       {/* オーバーレイ */}
       {isOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-2"
+          className="pointer-events-auto fixed top-0 left-0 w-full h-full bg-black opacity-50 z-5"
           onClick={toggleMenu}
         ></div>
       )}
