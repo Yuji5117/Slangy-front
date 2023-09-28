@@ -1,6 +1,8 @@
 import { useState } from "react";
 
 import AutoResizingTextarea from "./AutoResizingTextarea";
+import CopyClipboard from "./CopyClipboard";
+import Toolbar from "./Toolbar";
 
 import { API_URL } from "@/config";
 
@@ -77,7 +79,6 @@ const Form = ({
 
   return (
     <form action="" onSubmit={(e) => onClickFn(e)}>
-      {/* Translate Input Area */}
       <div className="mb-3">
         <AutoResizingTextarea
           value={targetWord}
@@ -86,8 +87,10 @@ const Form = ({
         />
       </div>
 
-      {/* Button Toolbar */}
-      <div className="flex justify-end items-center h-10">
+      <Toolbar>
+        <div className="flex space-x-5 items-center pl-2">
+          <CopyClipboard text={targetWord} />
+        </div>
         <button
           className={`${
             targetWord.trim() === "" || isDisabled
@@ -98,7 +101,7 @@ const Form = ({
         >
           Translate
         </button>
-      </div>
+      </Toolbar>
     </form>
   );
 };

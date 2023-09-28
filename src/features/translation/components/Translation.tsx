@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { AiOutlineCopy } from "react-icons/ai";
 import { BsBookmarkStar, BsFillBookmarkStarFill } from "react-icons/bs";
 
+import CopyClipboard from "@/components/CopyClipboard";
 import Form from "@/components/Form";
 import Select from "@/components/Select";
 import ToggleSwitchButton from "@/components/ToggleSwitchButton";
@@ -41,15 +41,6 @@ const Translation = () => {
     setIsFavorite(false);
   };
 
-  const handleCopyToClipboard = async (result: string) => {
-    try {
-      await navigator.clipboard.writeText(result);
-      alert("コピーしました");
-    } catch {
-      alert("コピーに失敗しました");
-    }
-  };
-
   return (
     <section className="flex flex-col w-full max-w-md">
       <div className="p-4">
@@ -80,9 +71,7 @@ const Translation = () => {
         </div>
         <Toolbar>
           <div className="flex space-x-5 items-center pl-2">
-            <div onClick={() => handleCopyToClipboard(result)}>
-              <AiOutlineCopy size="1.5rem" />
-            </div>
+            <CopyClipboard text={result} />
             {isFavorite ? (
               <button onClick={() => removeToFavorite()}>
                 <BsFillBookmarkStarFill size="1.5rem" />
