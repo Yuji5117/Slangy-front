@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { BsBookmarkStar, BsFillBookmarkStarFill } from "react-icons/bs";
 
-import CopyClipboard from "@/components/CopyClipboard";
+import CopyClipboard from "@/components/Elements/CopyClipboard";
 import Form from "@/components/Form";
 import Select from "@/components/Select";
-import ToggleSwitchButton from "@/components/ToggleSwitchButton";
+import ToggleSwitchButton from "@/components/Elements/ToggleSwitchButton";
 import Toolbar from "@/components/Toolbar";
 import { LANG_OPTIONS } from "@/const";
 import { useToggle } from "@/hooks";

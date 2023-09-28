@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import AutoResizingTextarea from "./AutoResizingTextarea";
-import CopyClipboard from "./CopyClipboard";
+import AutoResizingTextarea from "./Elements/AutoResizingTextarea";
+import CopyClipboard from "./Elements/CopyClipboard";
 import Toolbar from "./Toolbar";
 
 import { API_URL } from "@/config";
