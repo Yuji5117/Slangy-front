@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import AutoResizingTextarea from "./AutoResizingTextarea";
-import Toolbar from "./Toolbar";
 
 import { API_URL } from "@/config";
 
