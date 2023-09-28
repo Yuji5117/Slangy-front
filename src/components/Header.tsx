@@ -28,7 +28,9 @@ const Header = () => {
 
   return (
     <header className="flex justify-between items-center p-4">
-      <div className="font-bold text-2xl">Slangy</div>
+      <h1 className="font-bold text-2xl">
+        <Link to="/">Slangy</Link>
+      </h1>
       <button className="block lg:hidden" onClick={toggleMenu}>
         <div className="w-6 h-0.5 bg-gray-300 mb-1.5"></div>
         <div className="w-6 h-0.5 bg-gray-300 mb-1.5"></div>
