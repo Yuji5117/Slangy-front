@@ -3,7 +3,7 @@ type ToggleSwitchButtonProps = {
   toggle: () => void;
 };
 
-const ToggleSwitchButton = ({ on, toggle }: ToggleSwitchButtonProps) => {
+export const ToggleSwitchButton = ({ on, toggle }: ToggleSwitchButtonProps) => {
   return (
     <>
       <input
@@ -29,5 +29,3 @@ const ToggleSwitchButton = ({ on, toggle }: ToggleSwitchButtonProps) => {
     </>
   );
 };
-
-export default ToggleSwitchButton;

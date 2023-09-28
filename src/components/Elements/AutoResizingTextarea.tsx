@@ -7,7 +7,7 @@ type AutoResizingTextarea = {
   placeholder?: string;
 };
 
-const AutoResizingTextarea = ({
+export const AutoResizingTextarea = ({
   value,
   onChangeHandler,
   className,
@@ -44,5 +44,3 @@ const AutoResizingTextarea = ({
     ></textarea>
   );
 };
-
-export default AutoResizingTextarea;
