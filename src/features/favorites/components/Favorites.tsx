@@ -1,3 +1,5 @@
+import { FavoriteCard } from "./FavoriteCard";
+
 export const Favorites = () => {
   const favorites = [
     {
@@ -27,19 +29,11 @@ export const Favorites = () => {
         <div className="space-y-2">
           {favorites.map((favorite, index) => (
             <div className="border rounded-md" key={index}>
-              <div className="py-4 px-3 border-b align-middle">
-                <p>{favorite.lang}</p>
-              </div>
-              <div className="">
-                <div className="pt-5 pb-2">
-                  <p className="text-lg mx-3 border-b border-black">
-                    {favorite.sourceWord}
-                  </p>
-                </div>
-                <div className="pt-2 pb-5">
-                  <p className="text-lg px-3">{favorite.result}</p>
-                </div>
-              </div>
+              <FavoriteCard
+                lang={favorite.lang}
+                sourceWord={favorite.sourceWord}
+                result={favorite.result}
+              />
             </div>
           ))}
         </div>
