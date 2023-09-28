@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 import { useToggle } from "@/hooks/useToggle";
 
 type SelectProps = {
@@ -12,6 +14,26 @@ const Select = ({
   changeSelectedOption,
 }: SelectProps) => {
   const [isOptionsMenuOpen, toggleOptionsMenu] = useToggle();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (
+        !isOptionsMenuOpen ||
+        !dropdownRef.current ||
+        e.composedPath().includes(dropdownRef.current)
+      ) {
+        return;
+      }
+
+      toggleOptionsMenu();
+    };
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isOptionsMenuOpen, toggleOptionsMenu]);
 
   const handleOptionClick = (option: string) => {
     changeSelectedOption(option);
@@ -20,7 +42,7 @@ const Select = ({
 
   return (
     <>
-      <div className="relative">
+      <div ref={dropdownRef} className="relative">
         <div
           role="button"
           tabIndex={0}
