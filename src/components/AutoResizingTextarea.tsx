@@ -10,7 +10,7 @@ type AutoResizingTextarea = {
 const AutoResizingTextarea = ({
   value,
   onChangeHandler,
-  className = "w-full p-2 border-none rounded-md outline-none",
+  className,
   placeholder = "入力してください...",
 }: AutoResizingTextarea) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -31,7 +31,7 @@ const AutoResizingTextarea = ({
 
   return (
     <textarea
-      className={className}
+      className={`resize-none w-full p-2 border-none rounded-md outline-none ${className}`}
       placeholder={placeholder}
       value={value}
       ref={textAreaRef}

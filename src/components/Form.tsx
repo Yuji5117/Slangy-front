@@ -81,6 +81,7 @@ const Form = ({
     <form action="" onSubmit={(e) => onClickFn(e)}>
       <div className="mb-3">
         <AutoResizingTextarea
+          className="text-lg"
           value={targetWord}
           placeholder="スラングを入力してください。"
           onChangeHandler={onChangeHandler}
