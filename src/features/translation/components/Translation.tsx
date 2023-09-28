@@ -86,8 +86,11 @@ const Translation = () => {
             )}
           </div>
 
-          <div className="inline-block w-12 mr-2 align-middle select-none">
-            <ToggleSwitchButton on={isDetail} toggle={setIsDetail} />
+          <div className="space-x-2">
+            <span className="text-sm">詳細</span>
+            <div className="inline-block w-12 mr-2 align-middle select-none">
+              <ToggleSwitchButton on={isDetail} toggle={setIsDetail} />
+            </div>
           </div>
         </Toolbar>
       </div>
