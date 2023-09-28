@@ -88,7 +88,7 @@ const Form = ({
       </div>
 
       {/* Button Toolbar */}
-      <Toolbar>
+      <div className="flex justify-end items-center h-10">
         <button
           className={`${
             targetWord.trim() === "" || isDisabled
@@ -99,7 +99,7 @@ const Form = ({
         >
           Translate
         </button>
-      </Toolbar>
+      </div>
     </form>
   );
 };

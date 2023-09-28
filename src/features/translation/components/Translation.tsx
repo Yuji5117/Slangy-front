@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { AiOutlineCopy } from "react-icons/ai";
 import { BsBookmarkStar, BsFillBookmarkStarFill } from "react-icons/bs";
 
 import Form from "@/components/Form";
@@ -40,6 +41,15 @@ const Translation = () => {
     setIsFavorite(false);
   };
 
+  const handleCopyToClipboard = async (result: string) => {
+    try {
+      await navigator.clipboard.writeText(result);
+      alert("コピーしました");
+    } catch {
+      alert("コピーに失敗しました");
+    }
+  };
+
   return (
     <section className="flex flex-col w-full max-w-md">
       <div className="p-4">
@@ -69,22 +79,25 @@ const Translation = () => {
           <p className="text-lg">{result}</p>
         </div>
         <Toolbar>
-          <div className="items-center">
+          <div className="flex space-x-5 items-center pl-2">
+            <div onClick={() => handleCopyToClipboard(result)}>
+              <AiOutlineCopy size="1.5rem" />
+            </div>
             {isFavorite ? (
               <button onClick={() => removeToFavorite()}>
-                <BsFillBookmarkStarFill />
+                <BsFillBookmarkStarFill size="1.5rem" />
               </button>
             ) : (
               <button
                 disabled={!targetWord || !result}
                 onClick={() => addToFavorite(result)}
               >
-                <BsBookmarkStar />
+                <BsBookmarkStar size="1.5rem" />
               </button>
             )}
           </div>
 
-          <div className="relative inline-block w-12 mr-2 align-middle select-none">
+          <div className="inline-block w-12 mr-2 align-middle select-none">
             <ToggleSwitchButton on={isDetail} toggle={setIsDetail} />
           </div>
         </Toolbar>
