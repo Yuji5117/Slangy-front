@@ -1,4 +1,4 @@
-const Favorites = () => {
+export const Favorites = () => {
   const favorites = [
     {
       sourceWord: "slay",
@@ -47,5 +47,3 @@ const Favorites = () => {
     </section>
   );
 };
-
-export default Favorites;

@@ -4,7 +4,7 @@ type CopyClipboard = {
   text: string;
 };
 
-const CopyClipboard = ({ text }: CopyClipboard) => {
+export const CopyClipboard = ({ text }: CopyClipboard) => {
   const handleCopyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -20,5 +20,3 @@ const CopyClipboard = ({ text }: CopyClipboard) => {
     </div>
   );
 };
-
-export default CopyClipboard;

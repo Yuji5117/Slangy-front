@@ -8,7 +8,7 @@ type SelectProps = {
   changeSelectedOption: (option: string) => void;
 };
 
-const Select = ({
+export const Select = ({
   options,
   selectedOption,
   changeSelectedOption,
@@ -76,5 +76,3 @@ const Select = ({
     </>
   );
 };
-
-export default Select;

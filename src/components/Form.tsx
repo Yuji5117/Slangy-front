@@ -1,8 +1,7 @@
 import { useState } from "react";
 
-import AutoResizingTextarea from "./Elements/AutoResizingTextarea";
-import CopyClipboard from "./Elements/CopyClipboard";
-import Toolbar from "./Toolbar";
+import { AutoResizingTextarea, CopyClipboard } from "./Elements";
+import { Toolbar } from "./Toolbar";
 
 import { API_URL } from "@/config";
 
@@ -14,7 +13,7 @@ type FormProps = {
   setResult: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Form = ({
+export const Form = ({
   isDetail,
   targetWord,
   targetLang,
@@ -106,5 +105,3 @@ const Form = ({
     </form>
   );
 };
-
-export default Form;

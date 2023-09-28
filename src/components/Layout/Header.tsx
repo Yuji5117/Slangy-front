@@ -8,7 +8,7 @@ type NavigationItem = {
   to: string;
 };
 
-const Header = () => {
+export const Header = () => {
   const [isOpen, setIsOpen] = useToggle(false);
 
   const navigation: NavigationItem[] = [
@@ -74,5 +74,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

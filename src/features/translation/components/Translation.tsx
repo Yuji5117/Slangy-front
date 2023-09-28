@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { BsBookmarkStar, BsFillBookmarkStarFill } from "react-icons/bs";
 
-import CopyClipboard from "@/components/Elements/CopyClipboard";
-import Form from "@/components/Form";
-import Select from "@/components/Select";
-import ToggleSwitchButton from "@/components/Elements/ToggleSwitchButton";
-import Toolbar from "@/components/Toolbar";
+import { CopyClipboard, ToggleSwitchButton } from "@/components/Elements";
+import { Form } from "@/components/Form";
+import { Select } from "@/components/Select";
+import { Toolbar } from "@/components/Toolbar";
 import { LANG_OPTIONS } from "@/const";
 import { useToggle } from "@/hooks";
 
-const Translation = () => {
+export const Translation = () => {
   const [targetWord, setTargetWord] = useState<string>("");
   const [result, setResult] = useState<string>("");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
@@ -97,5 +96,3 @@ const Translation = () => {
     </section>
   );
 };
-
-export default Translation;
