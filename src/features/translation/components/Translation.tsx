@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { BsBookmarkStar, BsFillBookmarkStarFill } from "react-icons/bs";
 
 import { CopyClipboard, ToggleSwitchButton } from "@/components/Elements";
+import { FavoriteButton } from "@/components/Elements/FavoriteButton";
 import { Select } from "@/components/Select";
 import { LANG_OPTIONS } from "@/const";
 import { Form } from "@/features/translation/components/Form";
@@ -67,18 +67,13 @@ export const Translation = () => {
         <Toolbar>
           <div className="flex space-x-5 items-center pl-2">
             <CopyClipboard text={result} />
-            {isFavorite ? (
-              <button onClick={() => removeToFavorite()}>
-                <BsFillBookmarkStarFill size="1.5rem" />
-              </button>
-            ) : (
-              <button
-                disabled={!targetWord || !result}
-                onClick={() => addToFavorite(result)}
-              >
-                <BsBookmarkStar size="1.5rem" />
-              </button>
-            )}
+            <FavoriteButton
+              isFavorite={isFavorite}
+              isDisable={!targetWord || !result}
+              content={result}
+              addToFavorite={addToFavorite}
+              removeToFavorite={removeToFavorite}
+            />
           </div>
 
           <div className="space-x-2">
