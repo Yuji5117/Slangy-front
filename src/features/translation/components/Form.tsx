@@ -1,7 +1,10 @@
 import { useState } from "react";
 
-import { AutoResizingTextarea, CopyClipboard } from "./Elements";
 import { Toolbar } from "./Toolbar";
+import {
+  AutoResizingTextarea,
+  CopyClipboard,
+} from "../../../components/Elements";
 
 import { API_URL } from "@/config";
 

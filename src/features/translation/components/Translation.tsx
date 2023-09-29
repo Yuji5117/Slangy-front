@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { BsBookmarkStar, BsFillBookmarkStarFill } from "react-icons/bs";
 
 import { CopyClipboard, ToggleSwitchButton } from "@/components/Elements";
-import { Form } from "@/components/Form";
 import { Select } from "@/components/Select";
-import { Toolbar } from "@/components/Toolbar";
 import { LANG_OPTIONS } from "@/const";
+import { Form } from "@/features/translation/components/Form";
+import { Toolbar } from "@/features/translation/components/Toolbar";
 import { useToggle } from "@/hooks";
 
 export const Translation = () => {
