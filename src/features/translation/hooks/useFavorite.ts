@@ -6,7 +6,8 @@ export const useFavorite = (key: string) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [favoriteResult, setFavoriteResult] = useState<string>("");
 
-  const [state] = useLocalStorage(key);
+  const [state, setToLocalStorage, removeFromLocalStorage] =
+    useLocalStorage(key);
 
   useEffect(() => {
     if (state) {
@@ -19,12 +20,12 @@ export const useFavorite = (key: string) => {
   }, [state]);
 
   const addToFavorite = (result: string) => {
-    localStorage.setItem(key, result);
+    setToLocalStorage(result);
     setIsFavorite(true);
   };
 
   const removeToFavorite = () => {
-    localStorage.removeItem(key);
+    removeFromLocalStorage();
     setIsFavorite(false);
   };
 
