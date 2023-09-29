@@ -19,7 +19,9 @@ export const Translation = () => {
   const { isFavorite, favoriteResult, addToFavorite, removeToFavorite } =
     useFavorite(targetWord);
 
-  const displayedResult = favoriteResult || result;
+  const displayedResult: string =
+    favoriteResult === "" ? result : JSON.parse(favoriteResult).result;
+  const content = JSON.stringify({ result: displayedResult, lang: targetLang });
 
   return (
     <section className="flex flex-col w-full max-w-md">
@@ -55,7 +57,7 @@ export const Translation = () => {
             <FavoriteButton
               isFavorite={isFavorite}
               isDisable={!targetWord || !displayedResult}
-              content={displayedResult}
+              content={content}
               addToFavorite={addToFavorite}
               removeToFavorite={removeToFavorite}
             />

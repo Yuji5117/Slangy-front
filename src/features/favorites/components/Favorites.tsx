@@ -4,16 +4,19 @@ export const Favorites = () => {
   const favorites = [];
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
-    if (key) {
-      const value = localStorage.getItem(key);
-      if (value) {
-        favorites.push({
-          sourceWord: key,
-          result: value,
-          lang: "English",
-        });
-      }
-    }
+    if (!key) continue;
+
+    const value = localStorage.getItem(key);
+    if (!value) continue;
+
+    const { result, lang }: { result: string; lang: string } =
+      JSON.parse(value);
+
+    favorites.push({
+      sourceWord: key,
+      result,
+      lang,
+    });
   }
 
   return (
