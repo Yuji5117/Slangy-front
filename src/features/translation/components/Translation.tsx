@@ -26,10 +26,6 @@ export const Translation = () => {
     }
   }, [targetWord, setIsFavorite]);
 
-  const changeTargetLang = (option: string) => {
-    setTargetLang(option);
-  };
-
   const addToFavorite = (result: string) => {
     localStorage.setItem(targetWord, result);
     setIsFavorite(true);
@@ -49,7 +45,7 @@ export const Translation = () => {
             <Select
               options={LANG_OPTIONS}
               selectedOption={targetLang}
-              changeSelectedOption={changeTargetLang}
+              changeSelectedOption={setTargetLang}
             />
           </div>
         </div>
