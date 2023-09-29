@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
+import { useFavorite } from "../hooks/useFavorite";
 
 import { CopyClipboard, ToggleSwitchButton } from "@/components/Elements";
 import { FavoriteButton } from "@/components/Elements/FavoriteButton";
@@ -12,29 +14,18 @@ export const Translation = () => {
   const [targetWord, setTargetWord] = useState<string>("");
   const [result, setResult] = useState<string>("");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isDetail, setIsDetail] = useToggle(false);
 
-  useEffect(() => {
-    if (localStorage.getItem(targetWord)) {
-      setIsFavorite(true);
-      const value = localStorage.getItem(targetWord) as string;
-      setResult(value);
-    } else {
-      setIsFavorite(false);
-      setResult("");
-    }
-  }, [targetWord, setIsFavorite]);
+  const { isFavorite, addToFavorite, removeToFavorite } =
+    useFavorite(targetWord);
 
-  const addToFavorite = (result: string) => {
-    localStorage.setItem(targetWord, result);
-    setIsFavorite(true);
-  };
-
-  const removeToFavorite = () => {
-    localStorage.removeItem(targetWord);
-    setIsFavorite(false);
-  };
+  // useEffect(() => {
+  //   if (localStorage.getItem(targetWord)) {
+  //     setResult(value);
+  //   } else {
+  //     setResult("");
+  //   }
+  // }, [targetWord, setIsFavorite]);
 
   return (
     <section className="flex flex-col w-full max-w-md">
