@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 
+import { useLocalStorage } from "./useLocalStorage";
+
 export const useFavorite = (key: string) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [favoriteResult, setFavoriteResult] = useState<string>("");
 
+  const [state] = useLocalStorage(key);
+
   useEffect(() => {
-    if (localStorage.getItem(key)) {
+    if (state) {
       setIsFavorite(true);
-      const value = localStorage.getItem(key) as string;
-      setFavoriteResult(value);
+      setFavoriteResult(state);
     } else {
       setIsFavorite(false);
-      setFavoriteResult("");
+      setFavoriteResult(state);
     }
-  }, [key, setIsFavorite]);
+  }, [state]);
 
   const addToFavorite = (result: string) => {
     localStorage.setItem(key, result);
