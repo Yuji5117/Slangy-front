@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import { useToggle } from "@/hooks/useToggle";
+import { useToggle } from "@/hooks";
 
 type SelectProps = {
   options: string[];

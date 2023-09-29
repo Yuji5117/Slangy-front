@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 
-import { useToggle } from "./useToggle";
+import { useToggle } from ".";
 
 describe("initalStateがfalseの時", () => {
   it("toggle関数を1回実行すると、trueになる", () => {
