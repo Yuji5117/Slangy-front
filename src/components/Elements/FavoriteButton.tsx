@@ -16,17 +16,18 @@ export const FavoriteButton = ({
   addToFavorite,
   removeToFavorite,
 }: FavoriteButtonProps) => {
+  const ActiveFavoriteButton = () => (
+    <button onClick={() => removeToFavorite()}>
+      <BsFillBookmarkStarFill size="1.5rem" />
+    </button>
+  );
+
+  const InactiveFavoriteButton = () => (
+    <button disabled={isDisable} onClick={() => addToFavorite(content)}>
+      <BsBookmarkStar size="1.5rem" />
+    </button>
+  );
   return (
-    <>
-      {isFavorite ? (
-        <button onClick={() => removeToFavorite()}>
-          <BsFillBookmarkStarFill size="1.5rem" />
-        </button>
-      ) : (
-        <button disabled={isDisable} onClick={() => addToFavorite(content)}>
-          <BsBookmarkStar size="1.5rem" />
-        </button>
-      )}
-    </>
+    <>{isFavorite ? <ActiveFavoriteButton /> : <InactiveFavoriteButton />}</>
   );
 };
