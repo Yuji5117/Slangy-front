@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useLocalStorage } from "./useLocalStorage";
+import { useLocalStorage } from "@/hooks";
 
 export const useFavorite = (key: string) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);

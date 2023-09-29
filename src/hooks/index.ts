@@ -1,1 +1,2 @@
-export { useToggle } from "./useToggle";
+export * from "./useToggle";
+export * from "./useLocalStorage";
