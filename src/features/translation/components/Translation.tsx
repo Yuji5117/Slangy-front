@@ -14,7 +14,7 @@ export const Translation = () => {
   const [targetWord, setTargetWord] = useState<string>("");
   const [result, setResult] = useState<string>("");
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
-  const [isDetail, setIsDetail] = useToggle(false);
+  const [isDetail, toggleDetail] = useToggle(false);
 
   const { isFavorite, favoriteResult, addToFavorite, removeToFavorite } =
     useFavorite(targetWord);
@@ -64,7 +64,7 @@ export const Translation = () => {
           <div className="space-x-2">
             <span className="text-sm">詳細</span>
             <div className="inline-block w-12 mr-2 align-middle select-none">
-              <ToggleSwitchButton on={isDetail} toggle={setIsDetail} />
+              <ToggleSwitchButton on={isDetail} toggle={toggleDetail} />
             </div>
           </div>
         </Toolbar>
