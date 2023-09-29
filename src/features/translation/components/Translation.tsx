@@ -16,16 +16,10 @@ export const Translation = () => {
   const [targetLang, setTargetLang] = useState<string>("Engilsh");
   const [isDetail, setIsDetail] = useToggle(false);
 
-  const { isFavorite, addToFavorite, removeToFavorite } =
+  const { isFavorite, favoriteResult, addToFavorite, removeToFavorite } =
     useFavorite(targetWord);
 
-  // useEffect(() => {
-  //   if (localStorage.getItem(targetWord)) {
-  //     setResult(value);
-  //   } else {
-  //     setResult("");
-  //   }
-  // }, [targetWord, setIsFavorite]);
+  const displayedResult = favoriteResult || result;
 
   return (
     <section className="flex flex-col w-full max-w-md">
@@ -53,15 +47,15 @@ export const Translation = () => {
       </div>
       <div className="bg-white p-4 shadow-md">
         <div className="mb-3">
-          <p className="text-lg">{result}</p>
+          <p className="text-lg">{displayedResult}</p>
         </div>
         <Toolbar>
           <div className="flex space-x-5 items-center pl-2">
-            <CopyClipboard text={result} />
+            <CopyClipboard text={displayedResult} />
             <FavoriteButton
               isFavorite={isFavorite}
-              isDisable={!targetWord || !result}
-              content={result}
+              isDisable={!targetWord || !displayedResult}
+              content={displayedResult}
               addToFavorite={addToFavorite}
               removeToFavorite={removeToFavorite}
             />
