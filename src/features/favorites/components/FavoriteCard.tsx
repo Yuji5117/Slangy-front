@@ -21,10 +21,16 @@ export const FavoriteCard = ({
   const { remove: removeFavorite } = useLocalStorage(sourceWord);
 
   const handleRemoveFavoriteClick = () => {
-    removeFavorite();
-    setFavorites((prevFavorites) =>
-      prevFavorites.filter((item) => item.sourceWord !== sourceWord)
+    const userConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
     );
+
+    if (userConfirmed) {
+      removeFavorite();
+      setFavorites((prevFavorites) =>
+        prevFavorites.filter((item) => item.sourceWord !== sourceWord)
+      );
+    }
   };
   return (
     <>
