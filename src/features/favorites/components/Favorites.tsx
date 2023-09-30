@@ -10,7 +10,7 @@ export const Favorites = () => {
         <h1 className="text-2xl font-medium pb-6">Favorites</h1>
         <div className="flex justify-between pb-3">
           <div>全ての言語</div>
-          <button className="text-red-500 " onClick={removeAllFavorites}>
+          <button className="text-red-500" onClick={removeAllFavorites}>
             全て削除
           </button>
         </div>
