@@ -4,7 +4,8 @@ import { Translation } from "@/types";
 
 export const useFavorites = (): [
   Translation[],
-  Dispatch<SetStateAction<Translation[]>>
+  Dispatch<SetStateAction<Translation[]>>,
+  () => void
 ] => {
   const [favorites, setFavorites] = useState<Translation[]>([]);
 
@@ -35,5 +36,16 @@ export const useFavorites = (): [
     setFavorites(newFavorites);
   }, []);
 
-  return [favorites, setFavorites];
+  const removeAllFavorites = () => {
+    const userConfirmed = window.confirm(
+      "Are you sure you want to delete this item?"
+    );
+
+    if (userConfirmed) {
+      localStorage.clear();
+      setFavorites([]);
+    }
+  };
+
+  return [favorites, setFavorites, removeAllFavorites];
 };
