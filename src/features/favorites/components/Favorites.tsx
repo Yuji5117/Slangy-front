@@ -1,38 +1,8 @@
-import { useEffect, useState } from "react";
-
 import { FavoriteCard } from "./FavoriteCard";
-
-import { Translation } from "@/types";
+import { useFavorites } from "../hooks/useFavorites";
 
 export const Favorites = () => {
-  const [favorites, setFavorites] = useState<Translation[]>([]);
-
-  useEffect(() => {
-    const newFavorites: Translation[] = [];
-
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (!key) continue;
-
-      const value = localStorage.getItem(key);
-      if (!value) continue;
-
-      try {
-        const { result, lang }: { result: string; lang: string } =
-          JSON.parse(value);
-
-        newFavorites.push({
-          lang,
-          sourceWord: key,
-          result,
-        });
-      } catch (error) {
-        console.error("Error parsing localStorage item:", error);
-      }
-    }
-
-    setFavorites(newFavorites);
-  }, []);
+  const [favorites, setFavorites] = useFavorites();
 
   return (
     <section className="flex flex-col w-full max-w-md">
