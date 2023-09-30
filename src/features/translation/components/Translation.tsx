@@ -13,7 +13,7 @@ import { useToggle } from "@/hooks";
 export const Translation = () => {
   const [targetWord, setTargetWord] = useState<string>("");
   const [result, setResult] = useState<string>("");
-  const [targetLang, setTargetLang] = useState<string>("Engilsh");
+  const [targetLang, setTargetLang] = useState<string>("English");
   const [isDetail, toggleDetail] = useToggle(false);
 
   const { isFavorite, favoriteResult, addToFavorite, removeToFavorite } =
