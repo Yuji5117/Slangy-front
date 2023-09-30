@@ -16,9 +16,10 @@ export const Favorites = () => {
       favorites.some((favorite) => favorite.lang === item)
   );
 
-  const filterdFavorites = favorites.filter(
-    (favorite) => sortKey === "全ての言語" || favorite.lang === sortKey
-  );
+  const filterdFavorites =
+    sortKey === "全ての言語"
+      ? favorites
+      : favorites.filter((favorite) => favorite.lang === sortKey);
 
   return (
     <section className="flex flex-col w-full max-w-md">
