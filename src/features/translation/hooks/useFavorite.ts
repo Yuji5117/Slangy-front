@@ -6,8 +6,11 @@ export const useFavorite = (key: string) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [favoriteResult, setFavoriteResult] = useState<string>("");
 
-  const [state, setToLocalStorage, removeFromLocalStorage] =
-    useLocalStorage(key);
+  const {
+    state,
+    set: setToLocalStorage,
+    remove: removeFromLocalStorage,
+  } = useLocalStorage(key);
 
   useEffect(() => {
     if (state) {

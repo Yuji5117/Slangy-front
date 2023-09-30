@@ -1,23 +1,38 @@
+import { useEffect, useState } from "react";
+
 import { FavoriteCard } from "./FavoriteCard";
 
+import { Translation } from "@/types";
+
 export const Favorites = () => {
-  const favorites = [];
-  for (let i = 0; i < localStorage.length; i++) {
-    const key = localStorage.key(i);
-    if (!key) continue;
+  const [favorites, setFavorites] = useState<Translation[]>([]);
 
-    const value = localStorage.getItem(key);
-    if (!value) continue;
+  useEffect(() => {
+    const newFavorites: Translation[] = [];
 
-    const { result, lang }: { result: string; lang: string } =
-      JSON.parse(value);
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (!key) continue;
 
-    favorites.push({
-      sourceWord: key,
-      result,
-      lang,
-    });
-  }
+      const value = localStorage.getItem(key);
+      if (!value) continue;
+
+      try {
+        const { result, lang }: { result: string; lang: string } =
+          JSON.parse(value);
+
+        newFavorites.push({
+          lang,
+          sourceWord: key,
+          result,
+        });
+      } catch (error) {
+        console.error("Error parsing localStorage item:", error);
+      }
+    }
+
+    setFavorites(newFavorites);
+  }, []);
 
   return (
     <section className="flex flex-col w-full max-w-md">
@@ -31,6 +46,7 @@ export const Favorites = () => {
                   lang={favorite.lang}
                   sourceWord={favorite.sourceWord}
                   result={favorite.result}
+                  setFavorites={setFavorites}
                 />
               </div>
             ))}
