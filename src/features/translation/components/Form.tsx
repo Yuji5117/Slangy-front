@@ -77,6 +77,7 @@ export const Form = ({
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTargetWord(e.target.value);
+    setResult("");
   };
 
   return (
