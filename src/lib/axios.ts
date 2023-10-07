@@ -2,14 +2,14 @@ import Axios from "axios";
 
 import { API_URL } from "@/config";
 
-export const axios = Axios.create({
+export const clientApi = Axios.create({
   baseURL: API_URL,
   headers: {
     "Content-Type": "text/plain",
   },
 });
 
-axios.interceptors.response.use(
+clientApi.interceptors.response.use(
   (response) => {
     return response;
   },
