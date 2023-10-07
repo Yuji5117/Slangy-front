@@ -64,11 +64,5 @@ export const Register = () => {
         </form>
       </div>
     </div>
-    // <div>
-    //   <form action="">
-    //     <input type="text" />
-    //     <input type="text" />
-    //   </form>
-    // </div>
   );
 };
