@@ -7,7 +7,6 @@ type ResultType = {
   displayedResult: string;
   targetLang: string;
   targetWord: string;
-  isFavorite: boolean;
   isDetail: boolean;
 
   addToFavorite: (result: string) => void;
@@ -19,7 +18,6 @@ export const Result = ({
   displayedResult,
   targetLang,
   targetWord,
-  isFavorite,
   isDetail,
 
   addToFavorite,
@@ -35,7 +33,7 @@ export const Result = ({
         <div className="flex space-x-5 items-center pl-2">
           <CopyClipboard text={displayedResult} />
           <FavoriteButton
-            isFavorite={isFavorite}
+            isFavorite={displayedResult !== ""}
             isDisable={!targetWord || !displayedResult}
             content={JSON.stringify({
               result: displayedResult,

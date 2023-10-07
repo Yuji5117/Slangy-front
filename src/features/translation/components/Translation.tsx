@@ -14,7 +14,7 @@ export const Translation = () => {
   const [targetLang, setTargetLang] = useState<string>("English");
   const [isDetail, toggleDetail] = useToggle(false);
 
-  const { isFavorite, favoriteResult, addToFavorite, removeToFavorite } =
+  const { favoriteResult, addToFavorite, removeToFavorite } =
     useFavorite(targetWord);
 
   const displayedResult: string =
@@ -47,7 +47,6 @@ export const Translation = () => {
           <Result
             targetLang={targetLang}
             targetWord={targetWord}
-            isFavorite={isFavorite}
             isDetail={isDetail}
             displayedResult={displayedResult}
             addToFavorite={addToFavorite}
