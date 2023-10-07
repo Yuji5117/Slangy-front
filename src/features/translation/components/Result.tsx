@@ -33,7 +33,7 @@ export const Result = ({
         <>
           <CopyClipboard text={displayedResult} />
           <FavoriteButton
-            isFavorite={displayedResult !== ""}
+            isFavorite={favoriteResult !== ""}
             isDisable={!targetWord || !displayedResult}
             content={JSON.stringify({
               result: displayedResult,
