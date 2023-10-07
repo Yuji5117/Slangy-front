@@ -7,8 +7,6 @@ export const useFavorite = (key: string) => {
     remove: removeFromLocalStorage,
   } = useLocalStorage(key);
 
-  console.log({ state });
-
   const favoriteResult: string = state ? JSON.parse(state).result : "";
 
   const addToFavorite = (result: string) => {
