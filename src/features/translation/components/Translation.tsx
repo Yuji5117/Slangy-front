@@ -1,9 +1,15 @@
 import { useState } from "react";
 
-import { Result } from "./Result";
+import { DisplayResult } from "./DispalyResult";
+import { Toolbar } from "./Toolbar";
 import { useFavorite } from "../hooks/useFavorite";
 
-import { Select } from "@/components/Elements";
+import {
+  CopyClipboard,
+  Select,
+  ToggleSwitchButton,
+} from "@/components/Elements";
+import { FavoriteButton } from "@/components/Elements/FavoriteButton";
 import { LANG_OPTIONS } from "@/const";
 import { Form } from "@/features/translation/components/Form";
 import { useToggle } from "@/hooks";
@@ -44,15 +50,29 @@ export const Translation = () => {
           />
         </div>
         <div className="pt-5">
-          <Result
-            targetLang={targetLang}
-            targetWord={targetWord}
-            isDetail={isDetail}
-            displayedResult={displayedResult}
-            addToFavorite={addToFavorite}
-            removeToFavorite={removeToFavorite}
-            toggleDetail={toggleDetail}
-          />
+          <DisplayResult displayedResult={displayedResult} />
+          <Toolbar>
+            <>
+              <CopyClipboard text={displayedResult} />
+              <FavoriteButton
+                isFavorite={displayedResult !== ""}
+                isDisable={!targetWord || !displayedResult}
+                content={JSON.stringify({
+                  result: displayedResult,
+                  lang: targetLang,
+                })}
+                addToFavorite={addToFavorite}
+                removeToFavorite={removeToFavorite}
+              />
+            </>
+
+            <>
+              <span className="text-sm">詳細</span>
+              <div className="inline-block w-12 mr-2 align-middle select-none">
+                <ToggleSwitchButton on={isDetail} toggle={toggleDetail} />
+              </div>
+            </>
+          </Toolbar>
         </div>
       </div>
     </section>

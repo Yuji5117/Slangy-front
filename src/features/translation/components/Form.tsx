@@ -75,9 +75,9 @@ export const Form = ({
       </div>
 
       <Toolbar>
-        <div className="flex space-x-5 items-center pl-2">
+        <>
           <CopyClipboard text={targetWord} />
-        </div>
+        </>
         <button
           className={`${
             targetWord.trim() === "" || isDisabled
