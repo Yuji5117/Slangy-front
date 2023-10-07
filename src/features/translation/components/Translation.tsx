@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Result } from "./Result";
 import { useFavorite } from "../hooks/useFavorite";
 
-import { Select } from "@/components/Select";
+import { Select } from "@/components/Elements";
 import { LANG_OPTIONS } from "@/const";
 import { Form } from "@/features/translation/components/Form";
 import { useToggle } from "@/hooks";
