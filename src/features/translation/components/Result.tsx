@@ -32,14 +32,14 @@ export const Result = ({
         <>
           <CopyClipboard text={displayedResult} />
           <FavoriteButton
-            isFavorite={favoriteResult !== ""}
-            isDisable={!targetWord || !displayedResult}
+            hasFavorite={!!favoriteResult}
+            isDisabled={!targetWord || !displayedResult}
             content={JSON.stringify({
               result: displayedResult,
               lang: targetLang,
             })}
             addToFavorite={addToFavorite}
-            removeToFavorite={removeToFavorite}
+            removeFromFavorite={removeToFavorite}
           />
         </>
 
