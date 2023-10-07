@@ -1,4 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import { clientApi } from "@/lib/axios";
 
 type IFormInput = {
   email: string;
@@ -6,8 +9,15 @@ type IFormInput = {
 };
 
 export const Register = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log({ data });
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    const { email, password } = data;
+
+    const res = await clientApi.post("/auth/register", { email, password });
+    localStorage.setItem("user", res.data.email);
+    navigate("/auth/login");
+  };
 
   return (
     <div className="flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
