@@ -1,13 +1,11 @@
 import { useState } from "react";
 
+import { Result } from "./Result";
 import { useFavorite } from "../hooks/useFavorite";
 
-import { CopyClipboard, ToggleSwitchButton } from "@/components/Elements";
-import { FavoriteButton } from "@/components/Elements/FavoriteButton";
 import { Select } from "@/components/Select";
 import { LANG_OPTIONS } from "@/const";
 import { Form } from "@/features/translation/components/Form";
-import { Toolbar } from "@/features/translation/components/Toolbar";
 import { useToggle } from "@/hooks";
 
 export const Translation = () => {
@@ -47,31 +45,16 @@ export const Translation = () => {
         </div>
       </div>
       <div className="bg-white p-4 shadow-md">
-        <div className="mb-3">
-          <p className="text-lg">{displayedResult}</p>
-        </div>
-        <Toolbar>
-          <div className="flex space-x-5 items-center pl-2">
-            <CopyClipboard text={displayedResult} />
-            <FavoriteButton
-              isFavorite={isFavorite}
-              isDisable={!targetWord || !displayedResult}
-              content={JSON.stringify({
-                result: displayedResult,
-                lang: targetLang,
-              })}
-              addToFavorite={addToFavorite}
-              removeToFavorite={removeToFavorite}
-            />
-          </div>
-
-          <div className="space-x-2">
-            <span className="text-sm">詳細</span>
-            <div className="inline-block w-12 mr-2 align-middle select-none">
-              <ToggleSwitchButton on={isDetail} toggle={toggleDetail} />
-            </div>
-          </div>
-        </Toolbar>
+        <Result
+          targetLang={targetLang}
+          targetWord={targetWord}
+          isFavorite={isFavorite}
+          isDetail={isDetail}
+          displayedResult={displayedResult}
+          addToFavorite={addToFavorite}
+          removeToFavorite={removeToFavorite}
+          toggleDetail={toggleDetail}
+        />
       </div>
     </section>
   );
