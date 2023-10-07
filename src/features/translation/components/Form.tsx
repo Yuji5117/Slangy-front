@@ -26,7 +26,9 @@ export const Form = ({
 
   const isTargetWordEmpty = targetWord.trim() === "";
 
-  const onClickFn = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSlangTranslationSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
     setIsSending(true);
@@ -66,7 +68,7 @@ export const Form = ({
   };
 
   return (
-    <form action="" onSubmit={(e) => onClickFn(e)}>
+    <form action="" onSubmit={(e) => onSlangTranslationSubmit(e)}>
       <div className="mb-3">
         <AutoResizingTextarea
           className="text-lg"
