@@ -1,23 +1,15 @@
-import { useEffect, useState } from "react";
-
 import { useLocalStorage } from "@/hooks";
 
 export const useFavorite = (key: string) => {
-  const [favoriteResult, setFavoriteResult] = useState<string>("");
-
   const {
     state,
     set: setToLocalStorage,
     remove: removeFromLocalStorage,
   } = useLocalStorage(key);
 
-  useEffect(() => {
-    if (state) {
-      setFavoriteResult(state);
-    } else {
-      setFavoriteResult(state);
-    }
-  }, [state]);
+  console.log({ state });
+
+  const favoriteResult: string = state ? JSON.parse(state).result : "";
 
   const addToFavorite = (result: string) => {
     setToLocalStorage(result);

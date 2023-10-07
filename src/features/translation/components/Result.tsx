@@ -23,8 +23,7 @@ export const Result = ({
   const { favoriteResult, addToFavorite, removeToFavorite } =
     useFavorite(targetWord);
 
-  const displayedResult: string =
-    favoriteResult === "" ? resultText : JSON.parse(favoriteResult).result;
+  const displayedResult: string = favoriteResult || resultText;
 
   return (
     <>
