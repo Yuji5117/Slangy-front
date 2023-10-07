@@ -1,13 +1,19 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 export const Layout = () => {
   return (
-    <>
-      <header>ヘッダー</header>
+    <div>
+      <header className="flex justify-between items-center p-4">
+        <h1 className="font-bold text-2xl">
+          <Link to="/">Slangy</Link>
+        </h1>
+      </header>
       <main>
         <Outlet />
       </main>
-      <footer>フッター</footer>
-    </>
+      <footer className="py-4 text-center">
+        <p className="text-sm">Slangy</p>
+      </footer>
+    </div>
   );
 };
