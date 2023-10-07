@@ -1,4 +1,4 @@
-import { API_URL } from "@/config";
+import { STREAM_API_URL } from "@/config";
 
 type SlangTranslationRequestBody = {
   targetLang: string;
@@ -11,7 +11,7 @@ export const streamSlangTranslation = async (
 ) => {
   const { targetLang, targetWord, isDetail } = body;
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(STREAM_API_URL, {
     method: "POST",
     body: JSON.stringify({
       targetLang,
