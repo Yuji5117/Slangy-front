@@ -22,12 +22,14 @@ export const Form = ({
   setTargetWord,
   setResult,
 }: FormProps) => {
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [isSending, setIsSending] = useState<boolean>(false);
+
+  const isTargetWordEmpty = targetWord.trim() === "";
 
   const onClickFn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setIsDisabled(true);
+    setIsSending(true);
     setResult("");
 
     try {
@@ -52,7 +54,7 @@ export const Form = ({
         setResult((prev) => prev + decoded);
       }
 
-      setIsDisabled(false);
+      setIsSending(false);
     } catch (error: unknown) {
       console.error("An error occurred", error);
     }
@@ -71,6 +73,7 @@ export const Form = ({
           value={targetWord}
           placeholder="スラングを入力してください。"
           onChangeHandler={onChangeHandler}
+          isDisabled={isSending}
         />
       </div>
 
@@ -80,11 +83,11 @@ export const Form = ({
         </>
         <button
           className={`${
-            targetWord.trim() === "" || isDisabled
+            isTargetWordEmpty || isSending
               ? "bg-gray-300 cursor-not-allowed"
               : "bg-blue-500"
           } text-white px-4 py-1.5 rounded-full`}
-          disabled={targetWord.trim() === "" || isDisabled}
+          disabled={isTargetWordEmpty || isSending}
         >
           Translate
         </button>

@@ -5,6 +5,7 @@ type AutoResizingTextarea = {
   onChangeHandler: ChangeEventHandler<HTMLTextAreaElement>;
   className?: string;
   placeholder?: string;
+  isDisabled?: boolean;
 };
 
 export const AutoResizingTextarea = ({
@@ -12,6 +13,7 @@ export const AutoResizingTextarea = ({
   onChangeHandler,
   className,
   placeholder = "入力してください...",
+  isDisabled,
 }: AutoResizingTextarea) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -31,6 +33,7 @@ export const AutoResizingTextarea = ({
 
   return (
     <textarea
+      readOnly={isDisabled}
       className={`resize-none w-full p-2 border-none rounded-md outline-none ${className}`}
       placeholder={placeholder}
       value={value}
