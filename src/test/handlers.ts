@@ -1,39 +1,42 @@
 import { rest } from "msw";
 
+import { db, persistDb } from "./db";
+
 type User = {
   id: number;
   email: string;
   password: string;
 };
 
-const users: User[] = [
-  { id: 1, email: "abc123@gmail.com", password: "12345678" },
-  { id: 2, email: "abf127@gmail.com", password: "12345678nt" },
-];
-
 export const handlers = [
   rest.get("/auth/register", (_, res, ctx) => {
+    const users: User[] = db.user.getAll();
     return res(ctx.status(200), ctx.json({ users }));
   }),
 
   rest.post("/auth/register", async (req, res, ctx) => {
     const { email, password } = await req.json();
-    const usersCount = users.length + 1;
-    users.push({ id: usersCount, email, password });
-    return res(ctx.status(200), ctx.json({ email, password }));
+    const usersCount = db.user.count() + 1;
+    const user = db.user.create({ id: usersCount, email, password });
+
+    persistDb("user");
+    return res(ctx.status(200), ctx.json(user));
   }),
 
   rest.post("/auth/login", async (req, res, ctx) => {
     const { email, password } = await req.json();
 
-    const targetUser = users.find((user) => user.email === email);
+    const targetUser = db.user.findFirst({
+      where: { email: { equals: email } },
+    });
 
-    if (targetUser?.password === password) {
-      return res(ctx.status(200), ctx.json({ token: `token_${password}` }));
+    if (targetUser?.password !== password) {
+      return res(
+        ctx.status(403),
+        ctx.json({ message: "メールアドレスかパスワードが間違っております。" })
+      );
     }
-    return res(
-      ctx.status(403),
-      ctx.json({ message: "メールアドレスかパスワードが間違っております。" })
-    );
+
+    return res(ctx.status(200), ctx.json({ token: `token_${password}` }));
   }),
 ];
