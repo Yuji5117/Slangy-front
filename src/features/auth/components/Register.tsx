@@ -15,7 +15,7 @@ export const Register = () => {
     const { email, password } = data;
 
     const res = await clientApi.post("/auth/register", { email, password });
-    localStorage.setItem("user", res.data.email);
+    console.log({ res });
     navigate("/auth/login");
   };
 
