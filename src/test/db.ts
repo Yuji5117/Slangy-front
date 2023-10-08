@@ -2,9 +2,15 @@ import { factory, primaryKey } from "@mswjs/data";
 
 const models = {
   user: {
-    id: primaryKey(Number),
+    id: primaryKey(String),
     email: String,
     password: String,
+  },
+  slangTranslation: {
+    id: primaryKey(String),
+    language: String,
+    targetWord: String,
+    result: String,
   },
 };
 
@@ -20,10 +26,6 @@ export const loadDb = () =>
 export const persistDb = (model: Model) => {
   if (process.env.NODE_ENV === "test") return;
   const data = loadDb();
-  // eslint-disable-next-line
-  console.log("model", model);
-  console.log("dbのmodel", db);
-
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   data[model] = db[model].getAll();

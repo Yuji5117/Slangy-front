@@ -1,11 +1,19 @@
 import { rest } from "msw";
+import { v4 as uuid } from "uuid";
 
 import { db, persistDb } from "./db";
 
 type User = {
-  id: number;
+  id: string;
   email: string;
   password: string;
+};
+
+type SlangTranslation = {
+  id: string;
+  language: string;
+  targetWord: string;
+  result: string;
 };
 
 export const handlers = [
@@ -16,11 +24,10 @@ export const handlers = [
 
   rest.post("/auth/register", async (req, res, ctx) => {
     const { email, password } = await req.json();
-    const usersCount = db.user.count() + 1;
-    const user = db.user.create({ id: usersCount, email, password });
+    const user: User = db.user.create({ id: uuid(), email, password });
 
     persistDb("user");
-    return res(ctx.status(200), ctx.json(user));
+    return res(ctx.status(201), ctx.json(user));
   }),
 
   rest.post("/auth/login", async (req, res, ctx) => {
@@ -38,5 +45,44 @@ export const handlers = [
     }
 
     return res(ctx.status(200), ctx.json({ token: `token_${password}` }));
+  }),
+
+  rest.get("/favorite", (req, res, ctx) => {
+    const targetWord = req.url.searchParams.get("targetWord");
+
+    if (!targetWord) {
+      return res(
+        ctx.status(400),
+        ctx.text("targetWordパラメーターは必須です。")
+      );
+    }
+
+    const slangTranslation: SlangTranslation | null =
+      db.slangTranslation.findFirst({
+        where: {
+          targetWord: {
+            equals: targetWord,
+          },
+        },
+      });
+    return res(ctx.status(200), ctx.json({ slangTranslation }));
+  }),
+
+  rest.get("/favorites", (_, res, ctx) => {
+    const slangTranslations: SlangTranslation[] = db.slangTranslation.getAll();
+    return res(ctx.status(200), ctx.json({ slangTranslations }));
+  }),
+
+  rest.post("/favorites", async (req, res, ctx) => {
+    const { targetWord, result } = await req.json();
+
+    const slangTranslation: SlangTranslation = db.slangTranslation.create({
+      id: uuid(),
+      targetWord,
+      result,
+    });
+
+    persistDb("slangTranslation");
+    return res(ctx.status(201), ctx.json(slangTranslation));
   }),
 ];
