@@ -13,13 +13,13 @@ export const Favorites = () => {
   const options = ["全ての言語", "English", "Korean", "Spanish"].filter(
     (item) =>
       item === "全ての言語" ||
-      favorites.some((favorite) => favorite.lang === item)
+      favorites.some((favorite) => favorite.language === item)
   );
 
   const filterdFavorites =
     sortKey === "全ての言語"
       ? favorites
-      : favorites.filter((favorite) => favorite.lang === sortKey);
+      : favorites.filter((favorite) => favorite.language === sortKey);
 
   return (
     <section className="flex flex-col w-full max-w-md">
@@ -53,11 +53,11 @@ export const Favorites = () => {
         </div>
         {filterdFavorites.length ? (
           <div className="space-y-2">
-            {filterdFavorites.map((favorite, index) => (
-              <div className="border rounded-md" key={index}>
+            {filterdFavorites.map((favorite) => (
+              <div className="border rounded-md" key={favorite.id}>
                 <FavoriteCard
-                  lang={favorite.lang}
-                  sourceWord={favorite.sourceWord}
+                  lang={favorite.language}
+                  sourceWord={favorite.targetWord}
                   result={favorite.result}
                   setFavorites={setFavorites}
                 />

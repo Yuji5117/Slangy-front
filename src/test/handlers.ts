@@ -3,18 +3,7 @@ import { v4 as uuid } from "uuid";
 
 import { db, persistDb } from "./db";
 
-type User = {
-  id: string;
-  email: string;
-  password: string;
-};
-
-type SlangTranslation = {
-  id: string;
-  language: string;
-  targetWord: string;
-  result: string;
-};
+import { SlangTranslation, User } from "@/types";
 
 export const handlers = [
   rest.get("/auth/register", (_, res, ctx) => {
@@ -70,7 +59,7 @@ export const handlers = [
 
   rest.get("/favorites", (_, res, ctx) => {
     const slangTranslations: SlangTranslation[] = db.slangTranslation.getAll();
-    return res(ctx.status(200), ctx.json({ slangTranslations }));
+    return res(ctx.status(200), ctx.json(slangTranslations));
   }),
 
   rest.post("/favorites", async (req, res, ctx) => {
