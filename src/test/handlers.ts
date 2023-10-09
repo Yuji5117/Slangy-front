@@ -54,7 +54,8 @@ export const handlers = [
           },
         },
       });
-    return res(ctx.status(200), ctx.json({ slangTranslation }));
+
+    return res(ctx.status(200), ctx.json(slangTranslation));
   }),
 
   rest.get("/favorites", (_, res, ctx) => {
@@ -63,12 +64,28 @@ export const handlers = [
   }),
 
   rest.post("/favorites", async (req, res, ctx) => {
-    const { targetWord, result } = await req.json();
+    const { language, targetWord, result } = await req.json();
 
     const slangTranslation: SlangTranslation = db.slangTranslation.create({
       id: uuid(),
+      language,
       targetWord,
       result,
+    });
+
+    persistDb("slangTranslation");
+    return res(ctx.status(201), ctx.json(slangTranslation));
+  }),
+
+  rest.delete("/favorites/:id", async (req, res, ctx) => {
+    const id = req.params.id as string;
+
+    const slangTranslation = db.slangTranslation.delete({
+      where: {
+        id: {
+          equals: id,
+        },
+      },
     });
 
     persistDb("slangTranslation");
