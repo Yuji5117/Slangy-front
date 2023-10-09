@@ -34,7 +34,6 @@ export const persistDb = (model: Model) => {
 
 export const initializeDb = () => {
   const database = loadDb();
-  console.log({ database });
   Object.entries(db).forEach(([key, model]) => {
     const dataEntres = database[key];
     if (dataEntres) {

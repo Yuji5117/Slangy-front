@@ -1,21 +1,42 @@
-import { useLocalStorage } from "@/hooks";
+import { useEffect, useState } from "react";
+
+import { addFavorite } from "../api/addFavorite";
+import { getFavorite } from "../api/getFavorite";
+import { removeFavorite } from "../api/removeFavorite";
 
 export const useFavorite = (key: string) => {
-  const {
-    state,
-    set: setToLocalStorage,
-    remove: removeFromLocalStorage,
-  } = useLocalStorage(key);
+  const [favoriteResult, setFavoriteResult] = useState<string>("");
+  const [hasFavorite, setHasFavorite] = useState<boolean>(false);
 
-  const favoriteResult: string = state ? JSON.parse(state).result : "";
+  useEffect(() => {
+    if (key) {
+      (async () => {
+        const res = await getFavorite(key);
 
-  const addToFavorite = (result: string) => {
-    setToLocalStorage(result);
+        if (res) {
+          setFavoriteResult(res.result);
+          setHasFavorite(true);
+        }
+      })();
+    }
+  }, [key]);
+
+  const addToFavorite = async (
+    language: string,
+    targetWord: string,
+    result: string
+  ) => {
+    await addFavorite(language, targetWord, result);
+
+    setHasFavorite(true);
   };
 
-  const removeToFavorite = () => {
-    removeFromLocalStorage();
+  const removeToFavorite = async (targetWord: string) => {
+    const { id } = await getFavorite(targetWord);
+    await removeFavorite(id);
+
+    setHasFavorite(false);
   };
 
-  return { favoriteResult, addToFavorite, removeToFavorite };
+  return { favoriteResult, hasFavorite, addToFavorite, removeToFavorite };
 };

@@ -8,9 +8,9 @@ import { Form } from "@/features/translation/components/Form";
 import { useToggle } from "@/hooks";
 
 export const Translation = () => {
+  const [targetLang, setTargetLang] = useState<string>("English");
   const [targetWord, setTargetWord] = useState<string>("");
   const [result, setResult] = useState<string>("");
-  const [targetLang, setTargetLang] = useState<string>("English");
   const [isDetail, toggleDetail] = useToggle(false);
 
   return (
@@ -42,6 +42,7 @@ export const Translation = () => {
             targetWord={targetWord}
             resultText={result}
             isDetail={isDetail}
+            setResult={setResult}
             toggleDetail={toggleDetail}
           />
         </div>

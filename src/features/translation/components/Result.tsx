@@ -1,6 +1,10 @@
+import { useEffect, useState } from "react";
+
 import { DisplayResult } from "./DispalyResult";
 import { Toolbar } from "./Toolbar";
-import { useFavorite } from "../hooks/useFavorite";
+import { addFavorite } from "../api/addFavorite";
+import { getFavorite } from "../api/getFavorite";
+import { removeFavorite } from "../api/removeFavorite";
 
 import { CopyClipboard, ToggleSwitchButton } from "@/components/Elements";
 import { FavoriteButton } from "@/components/Elements/FavoriteButton";
@@ -10,6 +14,8 @@ type ResultType = {
   targetWord: string;
   resultText: string;
   isDetail: boolean;
+
+  setResult: React.Dispatch<React.SetStateAction<string>>;
   toggleDetail: () => void;
 };
 
@@ -18,26 +24,55 @@ export const Result = ({
   targetWord,
   resultText,
   isDetail,
+  setResult,
   toggleDetail,
 }: ResultType) => {
-  const { favoriteResult, addToFavorite, removeToFavorite } =
-    useFavorite(targetWord);
+  const [hasFavorite, setHasFavorite] = useState<boolean>(false);
 
-  const displayedResult: string = favoriteResult || resultText;
+  useEffect(() => {
+    setHasFavorite(false);
+
+    if (targetWord) {
+      (async () => {
+        const res = await getFavorite(targetWord);
+
+        if (res) {
+          setResult(res.result);
+          setHasFavorite(true);
+        }
+      })();
+    }
+  }, [setResult, targetWord]);
+
+  const addToFavorite = async (
+    language: string,
+    targetWord: string,
+    result: string
+  ) => {
+    await addFavorite(language, targetWord, result);
+
+    setHasFavorite(true);
+  };
+
+  const removeToFavorite = async (targetWord: string) => {
+    const { id } = await getFavorite(targetWord);
+    await removeFavorite(id);
+
+    setHasFavorite(false);
+  };
 
   return (
     <>
-      <DisplayResult displayedResult={displayedResult} />
+      <DisplayResult displayedResult={resultText} />
       <Toolbar>
         <>
-          <CopyClipboard text={displayedResult} />
+          <CopyClipboard text={resultText} />
           <FavoriteButton
-            hasFavorite={!!favoriteResult}
-            isDisabled={!targetWord || !displayedResult}
-            content={JSON.stringify({
-              result: displayedResult,
-              lang: targetLang,
-            })}
+            hasFavorite={hasFavorite}
+            isDisabled={!targetWord || !resultText}
+            language={targetLang}
+            targetWord={targetWord}
+            result={resultText}
             addToFavorite={addToFavorite}
             removeFromFavorite={removeToFavorite}
           />
