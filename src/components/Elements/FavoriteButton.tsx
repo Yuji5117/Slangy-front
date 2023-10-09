@@ -1,11 +1,11 @@
 import { BsBookmarkStar, BsFillBookmarkStarFill } from "react-icons/bs";
 
+import { SlangTranslation } from "@/types";
+
 type FavoriteButtonProps = {
   hasFavorite: boolean;
   isDisabled: boolean;
-  language: string;
-  targetWord: string;
-  result: string;
+  slangTranslation: Omit<SlangTranslation, "id">;
 
   addToFavorite: (language: string, targetWord: string, result: string) => void;
   removeFromFavorite: (id: string) => void;
@@ -14,12 +14,12 @@ type FavoriteButtonProps = {
 export const FavoriteButton = ({
   hasFavorite,
   isDisabled,
-  language,
-  targetWord,
-  result,
+  slangTranslation,
   addToFavorite,
   removeFromFavorite,
 }: FavoriteButtonProps) => {
+  const { language, targetWord, result } = slangTranslation;
+
   if (hasFavorite) {
     return (
       <button onClick={() => removeFromFavorite(targetWord)}>

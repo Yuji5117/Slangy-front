@@ -7,20 +7,22 @@ import {
 } from "../../../components/Elements";
 import { streamSlangTranslation } from "../api/streamSlangTranslation";
 
+import { SlangTranslation } from "@/types";
+
 type FormProps = {
   isDetail: boolean;
   targetWord: string;
-  targetLang: string;
-  setTargetWord: React.Dispatch<React.SetStateAction<string>>;
-  setResult: React.Dispatch<React.SetStateAction<string>>;
+  language: string;
+  setSlangTranslation: React.Dispatch<
+    React.SetStateAction<Omit<SlangTranslation, "id">>
+  >;
 };
 
 export const Form = ({
   isDetail,
   targetWord,
-  targetLang,
-  setTargetWord,
-  setResult,
+  language,
+  setSlangTranslation,
 }: FormProps) => {
   const [isSending, setIsSending] = useState<boolean>(false);
 
@@ -32,11 +34,14 @@ export const Form = ({
     e.preventDefault();
 
     setIsSending(true);
-    setResult("");
+    setSlangTranslation((prev: Omit<SlangTranslation, "id">) => ({
+      ...prev,
+      result: "",
+    }));
 
     try {
       const res = await streamSlangTranslation({
-        targetLang,
+        language,
         targetWord,
         isDetail,
       });
@@ -53,7 +58,10 @@ export const Form = ({
         }
 
         const decoded = new TextDecoder().decode(value);
-        setResult((prev) => prev + decoded);
+        setSlangTranslation((prev) => ({
+          ...prev,
+          result: prev.result + decoded,
+        }));
       }
 
       setIsSending(false);
@@ -63,8 +71,11 @@ export const Form = ({
   };
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTargetWord(e.target.value);
-    setResult("");
+    setSlangTranslation((prev) => ({
+      ...prev,
+      targetWord: e.target.value,
+      result: "",
+    }));
   };
 
   return (

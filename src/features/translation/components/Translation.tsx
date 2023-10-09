@@ -6,12 +6,21 @@ import { Select } from "@/components/Elements";
 import { LANG_OPTIONS } from "@/const";
 import { Form } from "@/features/translation/components/Form";
 import { useToggle } from "@/hooks";
+import { SlangTranslation } from "@/types";
 
 export const Translation = () => {
-  const [targetLang, setTargetLang] = useState<string>("English");
-  const [targetWord, setTargetWord] = useState<string>("");
-  const [result, setResult] = useState<string>("");
+  const [slangTranslation, setSlangTranslation] = useState<
+    Omit<SlangTranslation, "id">
+  >({
+    language: "English",
+    targetWord: "",
+    result: "",
+  });
   const [isDetail, toggleDetail] = useToggle(false);
+
+  const setLanguage = (option: string) => {
+    setSlangTranslation((prev) => ({ ...prev, language: option }));
+  };
 
   return (
     <section className="flex flex-col w-full max-w-md">
@@ -20,8 +29,8 @@ export const Translation = () => {
           <div className="flex-1 mr-2">
             <Select
               options={LANG_OPTIONS}
-              selectedOption={targetLang}
-              changeSelectedOption={setTargetLang}
+              selectedOption={slangTranslation.language}
+              changeSelectedOption={setLanguage}
             />
           </div>
         </div>
@@ -29,20 +38,17 @@ export const Translation = () => {
         <div className="border-b pb-4 border-gray-100">
           <Form
             isDetail={isDetail}
-            targetWord={targetWord}
-            targetLang={targetLang}
-            setTargetWord={setTargetWord}
-            setResult={setResult}
+            targetWord={slangTranslation.targetWord}
+            language={slangTranslation.language}
+            setSlangTranslation={setSlangTranslation}
           />
         </div>
 
         <div className="pt-5">
           <Result
-            targetLang={targetLang}
-            targetWord={targetWord}
-            resultText={result}
+            slangTranslation={slangTranslation}
             isDetail={isDetail}
-            setResult={setResult}
+            setSlangTranslation={setSlangTranslation}
             toggleDetail={toggleDetail}
           />
         </div>

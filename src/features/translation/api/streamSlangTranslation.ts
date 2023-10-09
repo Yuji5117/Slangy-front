@@ -1,7 +1,7 @@
 import { STREAM_API_URL } from "@/config";
 
 type SlangTranslationRequestBody = {
-  targetLang: string;
+  language: string;
   targetWord: string;
   isDetail: boolean;
 };
@@ -9,17 +9,17 @@ type SlangTranslationRequestBody = {
 export const streamSlangTranslation = async (
   body: SlangTranslationRequestBody
 ) => {
-  const { targetLang, targetWord, isDetail } = body;
+  const { language, targetWord, isDetail } = body;
 
   const res = await fetch(STREAM_API_URL, {
     method: "POST",
     body: JSON.stringify({
-      targetLang,
+      language,
       targetWord,
       prompt: [
         {
           role: "system",
-          content: `You are an ${targetLang} slang master. Your task is to translate incoming ${targetLang} slang and show only meaning in Japanese`,
+          content: `You are an ${language} slang master. Your task is to translate incoming ${language} slang and show only meaning in Japanese`,
         },
         {
           role: "user",

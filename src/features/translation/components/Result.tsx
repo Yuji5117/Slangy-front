@@ -8,26 +8,27 @@ import { removeFavorite } from "../api/removeFavorite";
 
 import { CopyClipboard, ToggleSwitchButton } from "@/components/Elements";
 import { FavoriteButton } from "@/components/Elements/FavoriteButton";
+import { SlangTranslation } from "@/types";
 
 type ResultType = {
-  targetLang: string;
-  targetWord: string;
-  resultText: string;
+  slangTranslation: Omit<SlangTranslation, "id">;
   isDetail: boolean;
 
-  setResult: React.Dispatch<React.SetStateAction<string>>;
+  setSlangTranslation: React.Dispatch<
+    React.SetStateAction<Omit<SlangTranslation, "id">>
+  >;
   toggleDetail: () => void;
 };
 
 export const Result = ({
-  targetLang,
-  targetWord,
-  resultText,
+  slangTranslation,
   isDetail,
-  setResult,
+  setSlangTranslation,
   toggleDetail,
 }: ResultType) => {
   const [hasFavorite, setHasFavorite] = useState<boolean>(false);
+
+  const { targetWord, result } = slangTranslation;
 
   useEffect(() => {
     setHasFavorite(false);
@@ -37,12 +38,12 @@ export const Result = ({
         const res = await getFavorite(targetWord);
 
         if (res) {
-          setResult(res.result);
+          setSlangTranslation((prev) => ({ ...prev, result: res.result }));
           setHasFavorite(true);
         }
       })();
     }
-  }, [setResult, targetWord]);
+  }, [setSlangTranslation, targetWord]);
 
   const addToFavorite = async (
     language: string,
@@ -63,16 +64,14 @@ export const Result = ({
 
   return (
     <>
-      <DisplayResult displayedResult={resultText} />
+      <DisplayResult displayedResult={result} />
       <Toolbar>
         <>
-          <CopyClipboard text={resultText} />
+          <CopyClipboard text={result} />
           <FavoriteButton
             hasFavorite={hasFavorite}
-            isDisabled={!targetWord || !resultText}
-            language={targetLang}
-            targetWord={targetWord}
-            result={resultText}
+            isDisabled={!targetWord || !result}
+            slangTranslation={slangTranslation}
             addToFavorite={addToFavorite}
             removeFromFavorite={removeToFavorite}
           />
