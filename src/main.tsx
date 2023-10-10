@@ -6,7 +6,7 @@ import App from "./App.tsx";
 
 if (process.env.NODE_ENV === "development") {
   const { worker } = await import("./test/browser");
-  worker.start();
+  worker.start({ onUnhandledRequest: "bypass" });
 }
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
