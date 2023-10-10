@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { v4 as uuid } from "uuid";
 
-import { db, persistDb } from "./db";
+import { db, persistDb, removeFromDb } from "./db";
 
 import { SlangTranslation, User } from "@/types";
 
@@ -89,6 +89,16 @@ export const handlers = [
     });
 
     persistDb("slangTranslation");
+    return res(ctx.status(201), ctx.json(slangTranslation));
+  }),
+
+  rest.delete("/favorites", async (_, res, ctx) => {
+    const slangTranslation = db.slangTranslation.deleteMany({ where: {} });
+
+    console.log({ slangTranslation });
+    console.log({ db });
+
+    removeFromDb("slangTranslation");
     return res(ctx.status(201), ctx.json(slangTranslation));
   }),
 ];

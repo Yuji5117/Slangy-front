@@ -32,6 +32,13 @@ export const persistDb = (model: Model) => {
   window.localStorage.setItem("msw-db", JSON.stringify(data));
 };
 
+export const removeFromDb = (model: Model) => {
+  const data = loadDb();
+
+  data[model] = [];
+  window.localStorage.setItem("msw-db", JSON.stringify(data));
+};
+
 export const initializeDb = () => {
   const database = loadDb();
   Object.entries(db).forEach(([key, model]) => {

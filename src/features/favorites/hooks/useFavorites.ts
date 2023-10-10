@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
+import { deleteFavorites } from "../api/deleteFavorites";
 import { getFavorites } from "../api/getFavorites";
 
 import { SlangTranslation } from "@/types";
@@ -19,13 +20,13 @@ export const useFavorites = (): [
     })();
   }, []);
 
-  const removeAllFavorites = () => {
+  const removeAllFavorites = async () => {
     const userConfirmed = window.confirm(
       "Are you sure you want to delete this item?"
     );
 
     if (userConfirmed) {
-      localStorage.clear();
+      await deleteFavorites();
       setFavorites([]);
     }
   };
