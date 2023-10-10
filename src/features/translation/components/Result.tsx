@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { DisplayResult } from "./DispalyResult";
 import { Toolbar } from "./Toolbar";
 import { addFavorite } from "../api/addFavorite";
+import { deleteFavorite } from "../api/deleteFavorite";
 import { getFavorite } from "../api/getFavorite";
-import { removeFavorite } from "../api/removeFavorite";
 
 import { CopyClipboard, ToggleSwitchButton } from "@/components/Elements";
 import { FavoriteButton } from "@/components/Elements/FavoriteButton";
@@ -57,7 +57,7 @@ export const Result = ({
 
   const removeToFavorite = async (targetWord: string) => {
     const { id } = await getFavorite(targetWord);
-    await removeFavorite(id);
+    await deleteFavorite(id);
 
     setHasFavorite(false);
   };

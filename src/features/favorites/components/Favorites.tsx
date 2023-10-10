@@ -6,7 +6,7 @@ import { useFavorites } from "../hooks/useFavorites";
 import { useToggle } from "@/hooks";
 
 export const Favorites = () => {
-  const [favorites, setFavorites, removeAllFavorites] = useFavorites();
+  const [favorites, removeFavorite, removeAllFavorites] = useFavorites();
   const [sortKey, setSortKey] = useState<string>("全ての言語");
   const [isOpen, setIsOpen] = useToggle();
 
@@ -56,10 +56,8 @@ export const Favorites = () => {
             {filterdFavorites.map((favorite) => (
               <div className="border rounded-md" key={favorite.id}>
                 <FavoriteCard
-                  lang={favorite.language}
-                  sourceWord={favorite.targetWord}
-                  result={favorite.result}
-                  setFavorites={setFavorites}
+                  slangTranslation={favorite}
+                  removeFavorite={removeFavorite}
                 />
               </div>
             ))}

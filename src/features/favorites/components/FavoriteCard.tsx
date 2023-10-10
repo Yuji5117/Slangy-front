@@ -1,48 +1,33 @@
-import { Dispatch } from "react";
 import { AiOutlineClose } from "react-icons/ai/";
 
-import { useLocalStorage } from "@/hooks";
-import { Translation } from "@/types";
+import { SlangTranslation } from "@/types";
 
 type FavoriteCardProps = {
-  lang: string;
-  sourceWord: string;
-  result: string;
+  slangTranslation: SlangTranslation;
 
-  setFavorites: Dispatch<React.SetStateAction<Translation[]>>;
+  removeFavorite: (id: string) => Promise<void>;
 };
 
 export const FavoriteCard = ({
-  lang,
-  sourceWord,
-  result,
-  setFavorites,
+  slangTranslation,
+  removeFavorite,
 }: FavoriteCardProps) => {
-  const { remove: removeFavorite } = useLocalStorage(sourceWord);
+  const { id, language, targetWord, result } = slangTranslation;
 
   const handleRemoveFavoriteClick = () => {
-    const userConfirmed = window.confirm(
-      "Are you sure you want to delete this item?"
-    );
-
-    if (userConfirmed) {
-      removeFavorite();
-      setFavorites((prevFavorites) =>
-        prevFavorites.filter((item) => item.sourceWord !== sourceWord)
-      );
-    }
+    removeFavorite(id);
   };
   return (
     <>
       <div className="flex justify-between py-4 px-3 border-b align-middle">
-        <div>{lang}</div>
+        <div>{language}</div>
         <div className="opacity-30" onClick={handleRemoveFavoriteClick}>
           <AiOutlineClose size="1.5rem" />
         </div>
       </div>
       <div className="">
         <div className="pt-5 pb-2">
-          <p className="text-lg mx-3 border-b border-black">{sourceWord}</p>
+          <p className="text-lg mx-3 border-b border-black">{targetWord}</p>
         </div>
         <div className="pt-2 pb-5">
           <p className="text-lg px-3">{result}</p>

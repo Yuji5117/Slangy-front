@@ -1,13 +1,14 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { deleteFavorites } from "../api/deleteFavorites";
 import { getFavorites } from "../api/getFavorites";
 
+import { deleteFavorite } from "@/features/translation/api/deleteFavorite";
 import { SlangTranslation } from "@/types";
 
 export const useFavorites = (): [
   SlangTranslation[],
-  Dispatch<SetStateAction<SlangTranslation[]>>,
+  (id: string) => Promise<void>,
   () => void
 ] => {
   const [favorites, setFavorites] = useState<SlangTranslation[]>([]);
@@ -20,9 +21,22 @@ export const useFavorites = (): [
     })();
   }, []);
 
+  const removeFavorite = async (id: string) => {
+    const userConfirmed = window.confirm(
+      "Are you sure you want to delete this?"
+    );
+
+    if (userConfirmed) {
+      const res = await deleteFavorite(id);
+      setFavorites((prevFavorites) =>
+        prevFavorites.filter((item) => item.targetWord !== res.targetWord)
+      );
+    }
+  };
+
   const removeAllFavorites = async () => {
     const userConfirmed = window.confirm(
-      "Are you sure you want to delete this item?"
+      "Are you sure you want to delete all?"
     );
 
     if (userConfirmed) {
@@ -31,5 +45,5 @@ export const useFavorites = (): [
     }
   };
 
-  return [favorites, setFavorites, removeAllFavorites];
+  return [favorites, removeFavorite, removeAllFavorites];
 };

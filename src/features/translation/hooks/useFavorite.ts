@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { addFavorite } from "../api/addFavorite";
+import { deleteFavorite } from "../api/deleteFavorite";
 import { getFavorite } from "../api/getFavorite";
-import { removeFavorite } from "../api/removeFavorite";
 
 export const useFavorite = (key: string) => {
   const [favoriteResult, setFavoriteResult] = useState<string>("");
@@ -33,7 +33,7 @@ export const useFavorite = (key: string) => {
 
   const removeToFavorite = async (targetWord: string) => {
     const { id } = await getFavorite(targetWord);
-    await removeFavorite(id);
+    await deleteFavorite(id);
 
     setHasFavorite(false);
   };
