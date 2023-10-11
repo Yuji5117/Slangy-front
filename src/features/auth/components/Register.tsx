@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { clientApi } from "@/lib/axios";
+import { registerWithEmailAndPassword } from "../api/register";
 
 type IFormInput = {
   email: string;
@@ -13,9 +13,7 @@ export const Register = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const { email, password } = data;
-
-    const res = await clientApi.post("/auth/register", { email, password });
-    console.log({ res });
+    await registerWithEmailAndPassword({ email, password });
     navigate("/auth/login");
   };
 

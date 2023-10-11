@@ -20,7 +20,6 @@ export const handlers = [
   rest.post("/auth/register", async (req, res, ctx) => {
     try {
       const userObject = await req.json();
-
       const existingEmail = db.user.findFirst({
         where: {
           email: {
@@ -29,7 +28,7 @@ export const handlers = [
         },
       });
 
-      if (!existingEmail) {
+      if (existingEmail) {
         throw new Error("このメールアドレスは、既に登録されています。");
       }
 
@@ -42,11 +41,11 @@ export const handlers = [
 
       persistDb("user");
 
-      const result = authenticate({
+      const result = await authenticate({
         email: userObject.email,
         password: userObject.password,
       });
-      return res(ctx.json(result));
+      return res(ctx.status(201), ctx.json(result));
     } catch (error) {
       return res(
         ctx.status(400),
