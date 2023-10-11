@@ -2,8 +2,8 @@ import { rest } from "msw";
 import { v4 as uuid } from "uuid";
 
 import { db, persistDb, removeFromDb } from "./db";
+import { authenticate } from "./utiles";
 
-import { AuthUser } from "@/features/auth/types";
 import { SlangTranslation } from "@/types";
 
 export const handlers = [
@@ -18,11 +18,41 @@ export const handlers = [
   }),
 
   rest.post("/auth/register", async (req, res, ctx) => {
-    const { email, password } = await req.json();
-    const user: AuthUser = db.user.create({ id: uuid(), email, password });
+    try {
+      const userObject = await req.json();
 
-    persistDb("user");
-    return res(ctx.status(201), ctx.json(user));
+      const existingEmail = db.user.findFirst({
+        where: {
+          email: {
+            equals: userObject.email,
+          },
+        },
+      });
+
+      if (!existingEmail) {
+        throw new Error("このメールアドレスは、既に登録されています。");
+      }
+
+      db.user.create({
+        id: uuid(),
+        email: userObject.email,
+        // TODO: パスワードをhash化させる。
+        password: userObject.password,
+      });
+
+      persistDb("user");
+
+      const result = authenticate({
+        email: userObject.email,
+        password: userObject.password,
+      });
+      return res(ctx.json(result));
+    } catch (error) {
+      return res(
+        ctx.status(400),
+        ctx.json({ message: error || "Server Error" })
+      );
+    }
   }),
 
   rest.post("/auth/login", async (req, res, ctx) => {
