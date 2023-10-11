@@ -3,17 +3,23 @@ import { v4 as uuid } from "uuid";
 
 import { db, persistDb, removeFromDb } from "./db";
 
-import { SlangTranslation, User } from "@/types";
+import { AuthUser } from "@/features/auth/types";
+import { SlangTranslation } from "@/types";
 
 export const handlers = [
-  rest.get("/auth/register", (_, res, ctx) => {
-    const users: User[] = db.user.getAll();
-    return res(ctx.status(200), ctx.json({ users }));
+  rest.get("/auth/me", (req, res, ctx) => {
+    console.log("req.headers", req.headers.get("Authorization"));
+    // const user: AuthUser = db.user.findFirst({
+    //   where: {
+    //     email: req.headers.get("Authorization"),
+    //   },
+    // });
+    return res(ctx.status(200), ctx.json({ user: "test" }));
   }),
 
   rest.post("/auth/register", async (req, res, ctx) => {
     const { email, password } = await req.json();
-    const user: User = db.user.create({ id: uuid(), email, password });
+    const user: AuthUser = db.user.create({ id: uuid(), email, password });
 
     persistDb("user");
     return res(ctx.status(201), ctx.json(user));
@@ -94,9 +100,6 @@ export const handlers = [
 
   rest.delete("/favorites", async (_, res, ctx) => {
     const slangTranslation = db.slangTranslation.deleteMany({ where: {} });
-
-    console.log({ slangTranslation });
-    console.log({ db });
 
     removeFromDb("slangTranslation");
     return res(ctx.status(201), ctx.json(slangTranslation));
