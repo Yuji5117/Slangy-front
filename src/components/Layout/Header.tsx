@@ -48,6 +48,11 @@ export const Header = () => {
               <AiOutlineClose size="1.5rem" />
             </button>
           </div>
+          <div>
+            <Link to={"/auth/login"}>ログイン</Link>
+            <Link to={"/auth/register"}>登録</Link>
+            <Link to={"/auth/logout"}>ログアウト</Link>
+          </div>
           <ul className="pt-4 pl-3 space-y-2">
             {navigation.map((item) => (
               <li key={item.name}>
