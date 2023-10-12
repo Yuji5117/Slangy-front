@@ -1,6 +1,17 @@
-import Axios from "axios";
+import Axios, { InternalAxiosRequestConfig } from "axios";
 
 import { API_URL } from "@/config";
+import { storage } from "@/utils/storage";
+
+const authRequestInterceptor = (config: InternalAxiosRequestConfig) => {
+  const token = storage.getToken();
+  if (token) {
+    config.headers.Authorization = `${token}`;
+  }
+
+  config.headers.Accept = "application/json";
+  return config;
+};
 
 export const clientApi = Axios.create({
   baseURL: API_URL,
@@ -9,6 +20,7 @@ export const clientApi = Axios.create({
   },
 });
 
+clientApi.interceptors.request.use(authRequestInterceptor);
 clientApi.interceptors.response.use(
   (response) => {
     return response;

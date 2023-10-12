@@ -2,17 +2,18 @@ import { rest } from "msw";
 import { v4 as uuid } from "uuid";
 
 import { db, persistDb } from "../db";
-import { authenticate } from "../utiles";
+import { authenticate, requireAuth } from "../utiles";
 
 export const authHandlers = [
-  rest.get("/auth/me", (req, res, ctx) => {
-    console.log("req.headers", req.headers.get("Authorization"));
-    // const user: AuthUser = db.user.findFirst({
-    //   where: {
-    //     email: req.headers.get("Authorization"),
-    //   },
-    // });
-    return res(ctx.status(200), ctx.json({ user: "test" }));
+  rest.get("/auth/me", async (req, res, ctx) => {
+    try {
+      const user = requireAuth(req);
+
+      return res(ctx.status(200), ctx.json({ user }));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Server Error";
+      return res(ctx.status(400), ctx.json({ message }));
+    }
   }),
 
   rest.post("/auth/register", async (req, res, ctx) => {
