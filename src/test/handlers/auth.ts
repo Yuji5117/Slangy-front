@@ -7,7 +7,7 @@ import { authenticate, requireAuth } from "../utiles";
 export const authHandlers = [
   rest.get("/auth/me", async (req, res, ctx) => {
     try {
-      const user = requireAuth(req);
+      const user = await requireAuth(req);
 
       return res(ctx.status(200), ctx.json({ user }));
     } catch (error) {
