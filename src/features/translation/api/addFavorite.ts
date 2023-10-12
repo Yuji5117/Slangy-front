@@ -6,11 +6,9 @@ export const addFavorite = async (
   targetWord: string,
   result: string
 ): Promise<SlangTranslation> => {
-  const res = await clientApi.post("/favorites", {
+  return await clientApi.post("/favorites", {
     language,
     targetWord,
     result,
   });
-
-  return res.data;
 };
