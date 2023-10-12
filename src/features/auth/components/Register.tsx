@@ -17,9 +17,8 @@ export const Register = () => {
     const { email, password } = data;
     await registerFn.mutate(
       { email, password },
-      { onSuccess: () => console.log("登録完了") }
+      { onSuccess: () => navigate("/") }
     );
-    navigate("/");
   };
 
   return (

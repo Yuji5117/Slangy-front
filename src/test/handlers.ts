@@ -47,28 +47,22 @@ export const handlers = [
       });
       return res(ctx.status(201), ctx.json(result));
     } catch (error) {
-      return res(
-        ctx.status(400),
-        ctx.json({ message: error || "Server Error" })
-      );
+      const message = error instanceof Error ? error.message : "Server Error";
+      return res(ctx.status(400), ctx.json({ message }));
     }
   }),
 
   rest.post("/auth/login", async (req, res, ctx) => {
-    const { email, password } = await req.json();
+    try {
+      const credentials = await req.json();
 
-    const targetUser = db.user.findFirst({
-      where: { email: { equals: email } },
-    });
+      const result = await authenticate(credentials);
 
-    if (targetUser?.password !== password) {
-      return res(
-        ctx.status(403),
-        ctx.json({ message: "メールアドレスかパスワードが間違っております。" })
-      );
+      return res(ctx.status(200), ctx.json(result));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unauthorized";
+      return res(ctx.status(401), ctx.json({ message }));
     }
-
-    return res(ctx.status(200), ctx.json({ token: `token_${password}` }));
   }),
 
   rest.get("/favorite", (req, res, ctx) => {

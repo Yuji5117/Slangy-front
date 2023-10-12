@@ -43,7 +43,7 @@ const logoutFn = async () => {
 
 export const { useUser, useLogin, useRegister, useLogout } = configureAuth({
   userFn,
-  loginFn: loginFn,
+  loginFn,
   registerFn,
   logoutFn,
 });

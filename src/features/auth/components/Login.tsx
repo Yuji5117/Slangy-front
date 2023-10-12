@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { clientApi } from "@/lib/axios";
+import { useLogin } from "@/lib/auth";
 
 type IFormInput = {
   email: string;
@@ -10,16 +10,16 @@ type IFormInput = {
 
 export const Login = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
+  const login = useLogin();
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const { email, password } = data;
-
     try {
-      const res = await clientApi.post("/auth/login", { email, password });
-      localStorage.setItem("token", res.data.token);
-
-      navigate("/");
+      await login.mutate(
+        { email, password },
+        { onSuccess: () => navigate("/") }
+      );
     } catch (e) {
       console.log(e);
     }
