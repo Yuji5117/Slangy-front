@@ -18,3 +18,7 @@ clientApi.interceptors.response.use(
     throw error;
   }
 );
+
+clientApi.interceptors.response.use((response) => {
+  return response.data;
+});

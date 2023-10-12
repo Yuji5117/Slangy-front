@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { registerWithEmailAndPassword } from "../api/register";
+import { useRegister } from "@/lib/auth";
 
 type IFormInput = {
   email: string;
@@ -10,11 +10,16 @@ type IFormInput = {
 
 export const Register = () => {
   const navigate = useNavigate();
+  const registerFn = useRegister();
   const { register, handleSubmit } = useForm<IFormInput>();
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const { email, password } = data;
-    await registerWithEmailAndPassword({ email, password });
-    navigate("/auth/login");
+    await registerFn.mutate(
+      { email, password },
+      { onSuccess: () => console.log("登録完了") }
+    );
+    navigate("/");
   };
 
   return (

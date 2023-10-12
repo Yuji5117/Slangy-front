@@ -1,4 +1,6 @@
-import { configureAuth } from "node_modules/react-query-auth/dist";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { configureAuth } from "react-query-auth";
 
 import { getUser } from "@/features/auth/api/getUser";
 import {
@@ -25,13 +27,13 @@ const userFn = async () => {
 
 const loginFn = async (data: LoginCredentialsDTO) => {
   const response = await loginWithEmailAndPassword(data);
-  const user = handleUserResponse(response);
+  const user = await handleUserResponse(response);
   return user;
 };
 
 const registerFn = async (data: RegisterCredentialsDTO) => {
   const response = await registerWithEmailAndPassword(data);
-  const user = handleUserResponse(response);
+  const user = await handleUserResponse(response);
   return user;
 };
 
