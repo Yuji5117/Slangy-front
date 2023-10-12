@@ -2,6 +2,7 @@ import { AiOutlineClose } from "react-icons/ai/";
 import { Link } from "react-router-dom";
 
 import { useToggle } from "@/hooks";
+import { useLogout } from "@/lib/auth";
 
 type NavigationItem = {
   name: string;
@@ -10,7 +11,7 @@ type NavigationItem = {
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useToggle(false);
-
+  const logout = useLogout();
   const navigation: NavigationItem[] = [
     { name: "Home", to: "/" },
     { name: "Favorites", to: "/favorites" },
@@ -51,7 +52,7 @@ export const Header = () => {
           <div>
             <Link to={"/auth/login"}>ログイン</Link>
             <Link to={"/auth/register"}>登録</Link>
-            <Link to={"/auth/logout"}>ログアウト</Link>
+            <a onClick={() => logout.mutate()}>ログアウト</a>
           </div>
           <ul className="pt-4 pl-3 space-y-2">
             {navigation.map((item) => (
