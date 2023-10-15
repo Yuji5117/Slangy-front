@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import { MainLayout } from "@/components/Layout";
+import { NotFound } from "@/components/NotFound";
 import { Layout as AuthLayout } from "@/features/auth/components";
 import { Login } from "@/features/auth/components/Login";
 import { Register } from "@/features/auth/components/Register";
@@ -32,5 +33,9 @@ export const router = createBrowserRouter([
         element: <Login />,
       },
     ],
+  },
+  {
+    path: "/*",
+    element: <NotFound />,
   },
 ]);
