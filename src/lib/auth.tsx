@@ -38,6 +38,7 @@ const registerFn = async (data: RegisterCredentialsDTO) => {
 };
 
 const logoutFn = async () => {
+  console.log("ログアおうと");
   storage.clearToken();
 };
 

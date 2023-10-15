@@ -1,4 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
+
+import { ProtectedRoute } from "./protectedRoute";
 
 import { MainLayout } from "@/components/Layout";
 import { NotFound } from "@/components/NotFound";
@@ -8,34 +14,25 @@ import { Register } from "@/features/auth/components/Register";
 import { Favorites } from "@/features/favorites";
 import { Translation } from "@/features/translation/components/Translation";
 
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainLayout />,
-    children: [
-      { index: true, element: <Translation /> },
-      {
-        path: "/favorites",
-        element: <Favorites />,
-      },
-    ],
-  },
-  {
-    path: "/auth/*",
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "register",
-        element: <Register />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-    ],
-  },
-  {
-    path: "*",
-    element: <NotFound />,
-  },
-]);
+export const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<Translation />} />
+        <Route
+          path="/favorites"
+          element={
+            <ProtectedRoute>
+              <Favorites />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={"/auth"} element={<AuthLayout />}>
+        <Route path={"/auth/register"} element={<Register />} />
+        <Route path={"/auth/login"} element={<Login />} />
+      </Route>
+      <Route path="/*" element={<NotFound />} />
+    </>
+  )
+);

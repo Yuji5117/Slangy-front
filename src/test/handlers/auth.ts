@@ -8,11 +8,10 @@ export const authHandlers = [
   rest.get("/auth/me", async (req, res, ctx) => {
     try {
       const user = await requireAuth(req);
-
-      return res(ctx.status(200), ctx.json({ user }));
+      return res(ctx.delay(1000), ctx.json({ user }));
     } catch (error) {
       const message = error instanceof Error ? error.message : "Server Error";
-      return res(ctx.status(400), ctx.json({ message }));
+      return res(ctx.delay(1000), ctx.json({ message }));
     }
   }),
 
