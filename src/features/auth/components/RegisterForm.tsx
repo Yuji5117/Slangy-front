@@ -8,7 +8,7 @@ type IFormInput = {
   password: string;
 };
 
-export const Register = () => {
+export const RegisterForm = () => {
   const navigate = useNavigate();
   const registerFn = useRegister();
   const { register, handleSubmit } = useForm<IFormInput>();
