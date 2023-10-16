@@ -7,14 +7,15 @@ import { useLogout } from "@/lib/auth";
 type NavigationItem = {
   name: string;
   to: string;
+  state: string;
 };
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useToggle(false);
   const logout = useLogout();
   const navigation: NavigationItem[] = [
-    { name: "Home", to: "/" },
-    { name: "Favorites", to: "/favorites" },
+    { name: "Home", to: "/", state: "home" },
+    { name: "Favorites", to: "/favorites", state: "favorites" },
   ];
 
   const toggleMenu = () => {
@@ -61,6 +62,7 @@ export const Header = () => {
                   to={item.to}
                   className="mt-2 lg:mt-0 lg:ml-4 text-lg"
                   onClick={toggleMenu}
+                  state={item.state}
                 >
                   {item.name}
                 </Link>
