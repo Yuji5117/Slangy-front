@@ -1,6 +1,10 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-export const Layout = () => {
+type LayoutProps = {
+  children: React.ReactNode;
+};
+
+export const Layout = ({ children }: LayoutProps) => {
   return (
     <div>
       <header className="flex justify-between items-center p-4">
@@ -8,9 +12,7 @@ export const Layout = () => {
           <Link to="/">Slangy</Link>
         </h1>
       </header>
-      <main>
-        <Outlet />
-      </main>
+      <main>{children}</main>
       <footer className="py-4 text-center">
         <p className="text-sm">Slangy</p>
       </footer>

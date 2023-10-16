@@ -4,13 +4,13 @@ import {
   Route,
 } from "react-router-dom";
 
-import { ProtectedRoute } from "./protectedRoute";
+import { RequireAuth } from "./RequireAuth";
+import { RequireNoAuth } from "./RequireNoAuth";
 
 import { MainLayout } from "@/components/Layout";
 import { NotFound } from "@/components/NotFound";
-import { Layout as AuthLayout } from "@/features/auth/components";
-import { Login } from "@/features/auth/components/Login";
-import { Register } from "@/features/auth/components/Register";
+import { Login } from "@/features/auth/routes/Login";
+import { Register } from "@/features/auth/routes/Register";
 import { Favorites } from "@/features/favorites";
 import { Translation } from "@/features/translation/components/Translation";
 
@@ -19,18 +19,22 @@ export const router = createBrowserRouter(
     <>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Translation />} />
+        {/* <Route element={<ProtectedRoute />}> */}
         <Route
           path="/favorites"
-          element={
-            <ProtectedRoute>
-              <Favorites />
-            </ProtectedRoute>
-          }
+          element={<RequireAuth component={<Favorites />} />}
         />
+        {/* </Route> */}
       </Route>
-      <Route path={"/auth"} element={<AuthLayout />}>
-        <Route path={"/auth/register"} element={<Register />} />
-        <Route path={"/auth/login"} element={<Login />} />
+      <Route>
+        <Route
+          path={"/auth/register"}
+          element={<RequireNoAuth component={<Register />} />}
+        />
+        <Route
+          path={"/auth/login"}
+          element={<RequireNoAuth component={<Login />} />}
+        />
       </Route>
       <Route path="/*" element={<NotFound />} />
     </>
