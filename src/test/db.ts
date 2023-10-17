@@ -11,6 +11,7 @@ const models = {
     language: String,
     targetWord: String,
     result: String,
+    userId: String,
   },
 };
 

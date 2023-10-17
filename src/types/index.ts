@@ -3,4 +3,5 @@ export type SlangTranslation = {
   language: string;
   targetWord: string;
   result: string;
+  userId?: string;
 };

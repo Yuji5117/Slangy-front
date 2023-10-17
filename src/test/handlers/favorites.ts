@@ -2,12 +2,12 @@ import { rest } from "msw";
 import { v4 as uuid } from "uuid";
 
 import { db, persistDb, removeFromDb } from "../db";
-
-import { SlangTranslation } from "@/types";
+import { requireAuth } from "../utiles";
 
 export const favoritesHandlers = [
-  rest.get("/favorite", (req, res, ctx) => {
+  rest.get("/favorite", async (req, res, ctx) => {
     const targetWord = req.url.searchParams.get("targetWord");
+    const { id: userId } = await requireAuth(req);
 
     if (!targetWord) {
       return res(
@@ -16,35 +16,55 @@ export const favoritesHandlers = [
       );
     }
 
-    const slangTranslation: SlangTranslation | null =
-      db.slangTranslation.findFirst({
-        where: {
-          targetWord: {
-            equals: targetWord,
-          },
+    const slangTranslation = db.slangTranslation.findFirst({
+      where: {
+        targetWord: {
+          equals: targetWord,
         },
-      });
+        userId: { equals: userId },
+      },
+    });
 
     return res(ctx.status(200), ctx.json(slangTranslation));
   }),
 
-  rest.get("/favorites", (_, res, ctx) => {
-    const slangTranslations: SlangTranslation[] = db.slangTranslation.getAll();
+  rest.get("/favorites", async (req, res, ctx) => {
+    const { id: userId } = await requireAuth(req);
+
+    const slangTranslations = db.slangTranslation.findMany({
+      where: {
+        userId: {
+          equals: userId,
+        },
+      },
+    });
+
     return res(ctx.status(200), ctx.json(slangTranslations));
   }),
 
   rest.post("/favorites", async (req, res, ctx) => {
-    const { language, targetWord, result } = await req.json();
+    try {
+      const { language, targetWord, result } = await req.json();
+      const { id: userId } = await requireAuth(req);
 
-    const slangTranslation: SlangTranslation = db.slangTranslation.create({
-      id: uuid(),
-      language,
-      targetWord,
-      result,
-    });
+      if (!userId) {
+        throw new Error("認証されていません");
+      }
 
-    persistDb("slangTranslation");
-    return res(ctx.status(201), ctx.json(slangTranslation));
+      const slangTranslation = db.slangTranslation.create({
+        id: uuid(),
+        language,
+        targetWord,
+        result,
+        userId,
+      });
+
+      persistDb("slangTranslation");
+      return res(ctx.status(201), ctx.json(slangTranslation));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Server Error";
+      return res(ctx.delay(1000), ctx.json({ message }));
+    }
   }),
 
   rest.delete("/favorites/:id", async (req, res, ctx) => {
