@@ -26,7 +26,7 @@ export const router = createBrowserRouter(
         />
         {/* </Route> */}
       </Route>
-      <Route>
+      <Route path="/auth">
         <Route
           path={"/auth/register"}
           element={<RequireNoAuth component={<Register />} />}

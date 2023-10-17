@@ -1,5 +1,4 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
 
 import { useLogin } from "@/lib/auth";
 
@@ -11,18 +10,11 @@ type IFormInput = {
 export const LoginForm = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
   const login = useLogin();
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const locationState = location?.state?.from?.state ?? "";
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     const { email, password } = data;
     try {
-      await login.mutate(
-        { email, password },
-        { onSuccess: () => navigate(`/${locationState}`) }
-      );
+      await login.mutate({ email, password });
     } catch (e) {
       console.log(e);
     }

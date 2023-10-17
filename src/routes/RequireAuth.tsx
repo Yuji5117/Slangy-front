@@ -10,7 +10,7 @@ export const RequireAuth = ({ component }: RequireAuthProps) => {
   const location = useLocation();
 
   if (user.isLoading) {
-    return null;
+    return <div>loading</div>;
   }
 
   if (user?.data?.message) {

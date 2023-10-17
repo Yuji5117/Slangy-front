@@ -8,6 +8,7 @@ export type RequireNoAuthProps = { component: React.ReactNode };
 export const RequireNoAuth = ({ component }: RequireNoAuthProps) => {
   const user = useUser();
   const location = useLocation();
+  const locationState = location?.state?.from ?? "/";
 
   if (user.isLoading) {
     return <div>loading</div>;
@@ -23,7 +24,7 @@ export const RequireNoAuth = ({ component }: RequireNoAuthProps) => {
 
   return (
     <>
-      <Navigate to={`/`} state={{ from: location }} replace />;
+      <Navigate to={locationState} state={{ from: location }} replace />;
     </>
   );
 };
