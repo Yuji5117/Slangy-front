@@ -29,6 +29,11 @@ export const Header = () => {
     }
   };
 
+  const handleLogoutClick = () => {
+    logout.mutate();
+    toggleMenu();
+  };
+
   return (
     <header className="flex justify-between items-center p-4">
       <h1 className="font-bold text-2xl">
@@ -52,13 +57,21 @@ export const Header = () => {
             </button>
           </div>
           <div>
-            <Link to={"/auth/login"} state={location.state}>
+            <Link
+              onClick={toggleMenu}
+              to={"/auth/login"}
+              state={location.state}
+            >
               ログイン
             </Link>
-            <Link to={"/auth/register"} state={location.state}>
+            <Link
+              onClick={toggleMenu}
+              to={"/auth/register"}
+              state={location.state}
+            >
               登録
             </Link>
-            <a onClick={() => logout.mutate()}>ログアウト</a>
+            <a onClick={handleLogoutClick}>ログアウト</a>
           </div>
           <ul className="pt-4 pl-3 space-y-2">
             {navigation.map((item) => (
