@@ -32,7 +32,7 @@ export const router = createBrowserRouter(
           }
         />
       </Route>
-      <Route >
+      <Route>
         <Route path={"/auth/register"} element={<Register />} />
         <Route path={"/auth/login"} element={<Login />} />
       </Route>
