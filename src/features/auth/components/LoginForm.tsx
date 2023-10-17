@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useLogin } from "@/lib/auth";
 
@@ -67,6 +67,12 @@ export const LoginForm = () => {
           Log in
         </button>
       </div>
+      <p className="text-center">
+        アカウントの登録は
+        <Link className="text-indigo-600" to={"/auth/register"}>
+          こちら
+        </Link>
+      </p>
     </form>
   );
 };

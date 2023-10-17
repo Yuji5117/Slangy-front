@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useRegister } from "@/lib/auth";
 
@@ -58,6 +58,12 @@ export const RegisterForm = () => {
           Sign Up
         </button>
       </div>
+      <p className="text-center">
+        ログインは
+        <Link className="text-indigo-600" to={"/auth/login"}>
+          こちら
+        </Link>
+      </p>
     </form>
   );
 };
