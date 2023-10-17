@@ -63,7 +63,7 @@ export const favoritesHandlers = [
       return res(ctx.status(201), ctx.json(slangTranslation));
     } catch (error) {
       const message = error instanceof Error ? error.message : "Server Error";
-      return res(ctx.delay(1000), ctx.json({ message }));
+      return res(ctx.status(403), ctx.json({ message }));
     }
   }),
 

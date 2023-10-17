@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { DisplayResult } from "./DispalyResult";
 import { Toolbar } from "./Toolbar";
@@ -8,6 +9,7 @@ import { getFavorite } from "../api/getFavorite";
 
 import { CopyClipboard, ToggleSwitchButton } from "@/components/Elements";
 import { FavoriteButton } from "@/components/Elements/FavoriteButton";
+import { useUser } from "@/lib/auth";
 import { SlangTranslation } from "@/types";
 
 type ResultType = {
@@ -27,6 +29,8 @@ export const Result = ({
   toggleDetail,
 }: ResultType) => {
   const [hasFavorite, setHasFavorite] = useState<boolean>(false);
+  const { user } = useUser();
+  const navigate = useNavigate();
 
   const { targetWord, result } = slangTranslation;
 
@@ -35,7 +39,7 @@ export const Result = ({
 
     if (targetWord) {
       (async () => {
-        const res = await getFavorite(targetWord);
+        const res = user ? await getFavorite(targetWord) : null;
 
         if (res) {
           setSlangTranslation((prev) => ({ ...prev, result: res.result }));
@@ -43,13 +47,17 @@ export const Result = ({
         }
       })();
     }
-  }, [setSlangTranslation, targetWord]);
+  }, [setSlangTranslation, targetWord, user]);
 
   const addToFavorite = async (
     language: string,
     targetWord: string,
     result: string
   ) => {
+    if (!user) {
+      console.log("useなし");
+      return navigate("/auth/login");
+    }
     await addFavorite(language, targetWord, result);
 
     setHasFavorite(true);
