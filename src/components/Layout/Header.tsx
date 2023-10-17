@@ -2,7 +2,7 @@ import { AiOutlineClose } from "react-icons/ai/";
 import { Link, useLocation } from "react-router-dom";
 
 import { useToggle } from "@/hooks";
-import { useLogout } from "@/lib/auth";
+import { useLogout, useUser } from "@/lib/auth";
 
 type NavigationItem = {
   name: string;
@@ -13,6 +13,7 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useToggle(false);
   const logout = useLogout();
   const location = useLocation();
+  const { data } = useUser();
 
   const navigation: NavigationItem[] = [
     { name: "Home", to: "/" },
@@ -57,21 +58,17 @@ export const Header = () => {
             </button>
           </div>
           <div>
-            <Link
-              onClick={toggleMenu}
-              to={"/auth/login"}
-              state={location.state}
-            >
-              ログイン
-            </Link>
-            <Link
-              onClick={toggleMenu}
-              to={"/auth/register"}
-              state={location.state}
-            >
-              登録
-            </Link>
-            <a onClick={handleLogoutClick}>ログアウト</a>
+            {data ? (
+              <button onClick={handleLogoutClick}>ログアウト</button>
+            ) : (
+              <Link
+                onClick={toggleMenu}
+                to={"/auth/login"}
+                state={location.state}
+              >
+                ログイン
+              </Link>
+            )}
           </div>
           <ul className="pt-4 pl-3 space-y-2">
             {navigation.map((item) => (
