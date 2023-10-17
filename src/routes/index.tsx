@@ -19,12 +19,10 @@ export const router = createBrowserRouter(
     <>
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Translation />} />
-        {/* <Route element={<ProtectedRoute />}> */}
         <Route
           path="/favorites"
           element={<RequireAuth component={<Favorites />} />}
         />
-        {/* </Route> */}
       </Route>
       <Route path="/auth">
         <Route

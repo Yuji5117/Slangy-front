@@ -1,5 +1,5 @@
 import { AiOutlineClose } from "react-icons/ai/";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { useToggle } from "@/hooks";
 import { useLogout } from "@/lib/auth";
@@ -7,15 +7,16 @@ import { useLogout } from "@/lib/auth";
 type NavigationItem = {
   name: string;
   to: string;
-  state: string;
 };
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useToggle(false);
   const logout = useLogout();
+  const location = useLocation();
+
   const navigation: NavigationItem[] = [
-    { name: "Home", to: "/", state: "home" },
-    { name: "Favorites", to: "/favorites", state: "favorites" },
+    { name: "Home", to: "/" },
+    { name: "Favorites", to: "/favorites" },
   ];
 
   const toggleMenu = () => {
@@ -51,8 +52,12 @@ export const Header = () => {
             </button>
           </div>
           <div>
-            <Link to={"/auth/login"}>ログイン</Link>
-            <Link to={"/auth/register"}>登録</Link>
+            <Link to={"/auth/login"} state={location.state}>
+              ログイン
+            </Link>
+            <Link to={"/auth/register"} state={location.state}>
+              登録
+            </Link>
             <a onClick={() => logout.mutate()}>ログアウト</a>
           </div>
           <ul className="pt-4 pl-3 space-y-2">
@@ -62,7 +67,7 @@ export const Header = () => {
                   to={item.to}
                   className="mt-2 lg:mt-0 lg:ml-4 text-lg"
                   onClick={toggleMenu}
-                  state={item.state}
+                  state={item.to}
                 >
                   {item.name}
                 </Link>

@@ -8,19 +8,14 @@ export type RequireAuthProps = { component: React.ReactNode };
 export const RequireAuth = ({ component }: RequireAuthProps) => {
   const user = useUser();
   const location = useLocation();
+  const locationState = location.state ?? "/";
 
   if (user.isLoading) {
-    return <div>loading</div>;
+    return <div></div>;
   }
 
   if (user?.data?.message) {
-    return (
-      <Navigate
-        to={`/auth/login`}
-        state={{ from: location.pathname }}
-        replace
-      />
-    );
+    return <Navigate to={`/auth/login`} state={locationState} replace />;
   }
 
   return component;
