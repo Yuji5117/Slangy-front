@@ -21,8 +21,11 @@ const handleUserResponse = async (data: UserResponse) => {
 };
 
 const userFn = async () => {
-  const user = await getUser();
-  return user ?? null;
+  if (storage.getToken()) {
+    const user = await getUser();
+    return user;
+  }
+  return null;
 };
 
 const loginFn = async (data: LoginCredentialsDTO) => {
@@ -42,9 +45,10 @@ const logoutFn = async () => {
   storage.clearToken();
 };
 
-export const { useUser, useLogin, useRegister, useLogout } = configureAuth({
-  userFn,
-  loginFn,
-  registerFn,
-  logoutFn,
-});
+export const { useUser, useLogin, useRegister, useLogout, AuthLoader } =
+  configureAuth({
+    userFn,
+    loginFn,
+    registerFn,
+    logoutFn,
+  });
