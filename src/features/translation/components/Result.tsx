@@ -55,7 +55,6 @@ export const Result = ({
     result: string
   ) => {
     if (!user) {
-      console.log("useなし");
       return navigate("/auth/login");
     }
     await addFavorite(language, targetWord, result);

@@ -91,9 +91,7 @@ export const Form = ({
       </div>
 
       <Toolbar>
-        <>
-          <CopyClipboard text={targetWord} />
-        </>
+        <CopyClipboard text={targetWord} />
         <button
           className={`${
             isTargetWordEmpty || isSending
