@@ -23,13 +23,9 @@ export const clientApi = Axios.create({
 clientApi.interceptors.request.use(authRequestInterceptor);
 clientApi.interceptors.response.use(
   (response) => {
-    return response;
+    return response.data;
   },
   (error) => {
     return Promise.reject(error);
   }
 );
-
-clientApi.interceptors.response.use((response) => {
-  return response.data;
-});
